@@ -3,13 +3,16 @@ import StudentRegister from './Components/Registrar/StudentRegister';
 import TeacherRegister from './Components/Admin/TeacherRegister';
 import EmployeeRegister from './Components/Admin/EmployeeRegister';
 import Login from './Components/Login';
+import HomePage from './Components/HomePage';
 function App() {
   return (
-    <div className="App">
+    <div>
       {/* <StudentRegister/> */}
       {/* <TeacherRegister/> */}
       {/* <EmployeeRegister/> */}
-      <Login/>
+      <HomePage/>
+
+      {/* <Login/> */}
     </div>
   );
 }
