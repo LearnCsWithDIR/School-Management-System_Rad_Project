@@ -1,10 +1,11 @@
 import "./Login.css";
 import { useState } from "react";
-
+import Navbar from "./Navbar";
 
 function Login() {
     return (
       <>
+      <Navbar />
         <div className="container2">
           <div className="signtitle1">Welcome Back !</div>
           <div className="signtitle">Sign In</div>

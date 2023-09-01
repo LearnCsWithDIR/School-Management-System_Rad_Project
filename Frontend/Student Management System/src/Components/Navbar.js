@@ -2,6 +2,7 @@ import {Component} from "react";
 import "./Navbar.css";
 import logo from "../assets/sms2.jpg";
 import Login from "./Login";
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component {
     state = {clicked:false};
@@ -17,16 +18,16 @@ class Navbar extends Component {
                     <img className="logo" src={logo} alt="This is a logo" />
                     <div>
                         <ul id="navbar"  className={this.state.clicked ? "#navbar active": "#navbar"}>
-                            <li> <a href="index.html">HOME</a></li>
-                            <li> <a href="index.html">CONTACT</a></li>
-                            <li> <a href="index.html">ABOUT US</a></li>
+                            <li><Link to="/"> HOME</Link></li>
+                            <li> <Link to="/">CONTACT</Link></li>
+                            <li> <Link to="/">ABOUT US</Link></li>
 
                         </ul>
                     </div>
                     
                      <div>
                         <ul id="navbarIcon">
-                            <li><a href={Login} alt="Profile"><i id="profile" className="far fa-user-circle"></i></a></li>
+                            <li><Link to="/login"><i id="profile" className="far fa-user-circle"></i></Link></li>
                         </ul>
                     </div>
 

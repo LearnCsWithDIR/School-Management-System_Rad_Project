@@ -4,16 +4,21 @@ import TeacherRegister from './Components/Admin/TeacherRegister';
 import EmployeeRegister from './Components/Admin/EmployeeRegister';
 import Login from './Components/Login';
 import HomePage from './Components/HomePage';
+import { BrowserRouter , Routes, Route, Switch } from 'react-router-dom';
+
+
 function App() {
   return (
-    <div>
-      {/* <StudentRegister/> */}
-      {/* <TeacherRegister/> */}
-      {/* <EmployeeRegister/> */}
-      <HomePage/>
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<HomePage/>} />
+        <Route path="/login" element={<Login/>} />
+        {/* <Route path="/contact" component={Contact} /> */}
 
-      {/* <Login/> */}
-    </div>
+      </Routes>
+    </BrowserRouter>
+    </>
   );
 }
 
