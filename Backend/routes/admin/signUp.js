@@ -10,17 +10,6 @@ router.route("/add").post(async (req, res) => {
     const adminpassword = req.body.adminpassword;
     adminverified = false; 
 
-    // let enryptpassword;
-
-    // bcrypt.genSalt(10, function(err, salt) {
-    //     bcrypt.hash("B4c0/\/", salt, function(err, hash) {
-    //         // Store hash in your password DB.
-    //         enryptpassword= hash;
-    //     });
-    // });
-    // // const encrypt = sh
-    // console.log(enryptpassword);
-
     try {
         // Find the admin email already used or not
         const admin = await Admin.findOne({ adminemail });

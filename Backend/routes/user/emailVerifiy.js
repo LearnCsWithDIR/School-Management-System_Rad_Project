@@ -11,12 +11,12 @@ router.get('/verify', async (req, res) => {
 
   try {
     // Find the user with the matching verification token
-    const user = await User.findOne({ verificationToken: token });
+    const user = await User.findOne({ "authentication.verificationToken": token });
 
     if (user) {
       // Update the user's verification status
-      user.userverified = true;
-      user.verificationToken = undefined;
+      user.authentication.verified = true;
+      user.authentication.verificationToken = undefined;
       await user.save();
       res.status(200).json({ message: 'Email verified successfully' });
       

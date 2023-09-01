@@ -54,7 +54,7 @@ router.route('/').put(async (req, res) => {
                     const mailOptions = {
                         from: process.env.USER,
                         to: useremail,
-                        subject: 'Amoral Email Confirmation ',
+                        subject: 'SMS Email Confirmation ',
                         // text: 'Please click the following link to verify your account: '+ verificationURL,
 
                         html: '<div style="background-color: #e7e7e7; padding: 10px 10px 50px 10px; margin: 5px; border-top-left-radius: 30px; border-bottom-right-radius: 30px;">' +
