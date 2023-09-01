@@ -1,6 +1,6 @@
 import {Component} from "react";
 import "./Navbar.css";
-import logo from "../assets/sms2.jpg";
+import logo from "../../assets/sms2.jpg";
 import Login from "./Login";
 import {Link} from 'react-router-dom';
 
@@ -20,7 +20,7 @@ class Navbar extends Component {
                         <ul id="navbar"  className={this.state.clicked ? "#navbar active": "#navbar"}>
                             <li><Link to="/"> HOME</Link></li>
                             <li> <Link to="/">CONTACT</Link></li>
-                            <li> <Link to="/">ABOUT US</Link></li>
+                            <li> <Link to="/Dashboard">ABOUT US</Link></li>
 
                         </ul>
                     </div>

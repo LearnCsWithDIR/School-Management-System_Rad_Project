@@ -1,0 +1,5 @@
+
+# protect data
+
+/.env
+/node_modules
