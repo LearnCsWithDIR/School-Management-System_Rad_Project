@@ -1,39 +1,66 @@
-// import Admin from './models/Admin';
-
 const router = require("express").Router();
-let Admin = require("../../models/admin/signUp.js");
+let Employee = require("../../models/employee/signUp.js");
 var bcrypt = require('bcryptjs');
-const User = require("../../models/user/signUp.js");
+const crypto = require('crypto');
+const Email = require('../emailVerifyProcess.js')
 
 router.route("/add").post(async (req, res) => {
-    const adminemail = req.body.adminemail;
-    const adminpassword = req.body.adminpassword;
-    adminverified = false; 
+    const { emp_name, email, address, city, NIC, phone, gender, emp_type } = req.body;
+    var verified = false;
 
     try {
-        // Find the admin email already used or not
-        const admin = await Admin.findOne({ adminemail });
+        // Find the employee email already used or not
+        const employee = await Employee.findOne({ email });
 
- 
-        if (admin) {
+
+        if (employee) {
             res.status(200).json({ message: 'Email is Already used' });
         }
         else {
-            // Display an success message or redirect the admin to a sign-In page
+            // Display an success message or redirect the employee to a sign-In page
 
             // Hash the password before saving it
-            const adminhashedPassword = await bcrypt.hash(adminpassword, 12);
+            const emp_hashedPassword = await bcrypt.hash(NIC, 12);
+
+            // Generate the current date and time
+            const signUpDate = new Date();
+
+            // Generate a unique verification token for Students
+            const verificationToken = crypto.randomBytes(20).toString('hex');
+
+            // Create the verification URL
+            const verificationURL = process.env.BASE_URL + 'user/verify?token=' + verificationToken;
+
 
             // pass the values for using that SignUp models
-            const newAdmin = new Admin({
-                adminemail, adminpassword:adminhashedPassword,adminverified
-            })
+            const newEmployee = new Employee({
+                email: email,
+                empDetails: {
+                    name: emp_name,
+                    address: address,
+                    city: city,
+                    NIC: NIC,
+                    phone: phone,
+                    gender: gender,
+                    emp_type: emp_type
+                },
+                authentication: {
+                    emp_password: emp_hashedPassword,
+                    verified: verified,
+                    verificationToken: verificationToken,
+                    signUpDate: signUpDate
 
-            newAdmin.save().then(() => {
-                res.json("New Admin Added successful")
+                }
+            });
+
+            newEmployee.save().then(() => {
+                res.json("New Employee Added successful")
             }).catch((err) => {
                 console.log(err)
-            })
+            });
+
+            // email verifiy for pass the data
+            Email.sentEmail(email, verificationURL)
         }
 
     } catch (error) {

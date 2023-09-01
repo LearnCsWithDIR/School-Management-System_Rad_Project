@@ -1,5 +1,5 @@
 const router = require("express").Router();
-let Admin = require("../../models/admin/signUp.js");
+let Admin = require("../../models/employee/signUp.js");
 var bcrypt = require('bcryptjs');
 
 router.route('/').post(async (req, res) => {

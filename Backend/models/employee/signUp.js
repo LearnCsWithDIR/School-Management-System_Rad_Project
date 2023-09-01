@@ -4,25 +4,14 @@ const mongoose = require("mongoose");
 // create a schema for users
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const employeeSchema = new Schema({
+
   email: {
     type: String,
     required: true,
   },
-  userDetails: {
+  empDetails: {
     name: {
-      type: String,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
-    DOB: {
-      type: Date,
-      required: true,
-    },
-    city: {
       type: String,
       required: true,
     },
@@ -30,37 +19,29 @@ const userSchema = new Schema({
       type: String,
       required: true,
     },
-    department: {
-      type: String,
-      required: true,
-    },
-
-  },
-  parentDetails: {
-    name: {
+    city: {
       type: String,
       required: true,
     },
     NIC: {
-      type: String,
-      required: true,
-    }, 
-    relationship: {
-      type: String,
+      type: Date,
       required: true,
     },
     phone: {
       type: String,
       required: true,
     },
-  },
-  authentication: {
-    
-    stu_password: {
+    gender: {
       type: String,
       required: true,
     },
-    parent_password: {
+    emp_type: {
+      type: String,
+      required: true,
+    }
+  },
+  authentication: {
+    emp_password: {
       type: String,
       required: true,
     },
@@ -82,7 +63,7 @@ const userSchema = new Schema({
 
 });
 
-const User = mongoose.model("User", userSchema);
+const Employee = mongoose.model("Employee", employeeSchema);
 
 // export the Schema use for routes
-module.exports = User;
+module.exports = Employee;

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
-let User = require("../../models/user/signUp.js");
+let Student = require("../../models/student/signUp.js");
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -21,15 +21,15 @@ router.route('/').put(async (req, res) => {
 
     try {
         // Find the user email already used or not
-        const user = await User.findOne({ useremail });
+        const user = await Student.findOne({ useremail });
 
         if (user) {
             // user email valid and check token include or not
-            if (user.verificationToken == undefined) {
+            if (user.authentication.verificationToken == undefined) {
                 res.status(200).json({ message: 'Email is Already verified' });
                 return;
             } else {
-                if (user.userverified == false) {
+                if (user.authentication.verified == false) {
                     // Display an success message or redirect the user to a sign-In page
 
                     // Generate a unique verification token for users
@@ -38,7 +38,7 @@ router.route('/').put(async (req, res) => {
                     // Create the verification URL
                     const verificationURL = process.env.BASE_URL + 'user/verify?token=' + updateVerificationToken;
 
-                    user.verificationToken = updateVerificationToken;
+                    user.authentication.verificationToken = updateVerificationToken;
                     // 94ba1b8adf70ba33efe5c5931f3bc4cfe8e9167b
                     // d5c78794877636f7bb2a370bd903ea29f43ff8de
                     user.save().then(() => {

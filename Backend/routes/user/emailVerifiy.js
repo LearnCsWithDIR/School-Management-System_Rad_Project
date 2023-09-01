@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 // const bcrypt = require('bcrypt');
 // const crypto = require('crypto');
-let User = require("../../models/user/signUp.js");
+let Student = require("../../models/student/signUp.js");
+const Employee = require('../../models/employee/signUp.js');
 // const nodemailer = require('nodemailer');
 
 // Verification route file
@@ -11,16 +12,29 @@ router.get('/verify', async (req, res) => {
 
   try {
     // Find the user with the matching verification token
-    const user = await User.findOne({ "authentication.verificationToken": token });
+    const student = await Student.findOne({ "authentication.verificationToken": token });
+    const employee = await Employee.findOne({ "authentication.verificationToken": token });
 
-    if (user) {
+    if (student) {
       // Update the user's verification status
-      user.authentication.verified = true;
-      user.authentication.verificationToken = undefined;
-      await user.save();
+      student.authentication.verified = true;
+      student.authentication.verificationToken = undefined;
+      await student.save();
       res.status(200).json({ message: 'Email verified successfully' });
+      return;
+    } 
+    
+    else if (employee) {
+      // Update the user's verification status
+      employee.authentication.verified = true;
+      employee.authentication.verificationToken = undefined;
+      await employee.save();
+      res.status(200).json({ message: 'Email verified successfully' });
+      return;
       
-    } else {
+    } 
+    
+    else {
       res.status(400).json({ message: 'Invalid verification token' });
       return;
     }
