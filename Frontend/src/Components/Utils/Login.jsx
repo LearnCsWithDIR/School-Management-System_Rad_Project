@@ -6,25 +6,25 @@ function Login() {
     return (
       <>
       <Navbar />
-        <div className="container2">
-          <div className="signtitle1">Welcome Back !</div>
-          <div className="signtitle">Sign In</div>
-          <div className="signtitle">to your account</div>
+        <div id="container_login">
+          <div id="signtitle_login">Welcome Back !</div>
+          <div className="signtitle_1">Sign In</div>
+          <div className="signtitle_1">to your account</div>
           <form action="">
-            <div className="user-details">
-        
-              <div className="input-box">
-                <span className="details">Username</span>
+            <div id="user-details_login">
+
+              <div className="input-box_login">
+                <span className="details_login">Username</span>
                 <input type="text" placeholder="Enter Username" required />
               </div>
-  
-              <div className="input-box">
-                <span className="details">Password</span>
+
+              <div className="input-box_login">
+                <span className="details_login">Password</span>
                 <input type="password" placeholder="Enter Passsword" required />
               </div>
             </div>
 
-            <div className="button">
+            <div id="button_login">
               <input type="submit" value="Login" />
             </div>
           </form>
@@ -32,6 +32,6 @@ function Login() {
       </>
     );
   }
-  
+
   export default Login;
-  
+
