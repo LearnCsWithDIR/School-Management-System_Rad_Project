@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap"); 
 
 * {
   margin: 0;
@@ -16,7 +16,7 @@ body {
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 
-.container {
+.containerStu {
   max-width: 700px;
   width: 100%;
   background: #fff;
@@ -24,17 +24,35 @@ body {
   border-radius: 15px;
 }
 
-.container .title {
+.containerStu .title {
   font-size: 25px;
   font-weight: 500;
+  margin-bottom: 30px;
   position: relative;
+  /* float: left; */
 }
 
-.container .title::before {
+.containerStu .back{
+
+  float: right;
+  /* z-index: 5; */
+  text-decoration: none;
+
+}
+.containerStu .back a{
+
+  /* float: right; */
+  /* z-index: 5; */
+  text-decoration: none;
+
+}
+
+
+.containerStu .title::before {
   content: "";
   position: absolute;
-  left: 374px;
-  bottom: 11px;
+  left: 352px;
+  bottom: 6px;
   height: 4px;
   width: 50px;
   border-radius: 5px;
@@ -44,8 +62,8 @@ body {
 
 /* student form details  */
 
-.container form .user-details,
-.container form .parent-details {
+.containerStu form .user-details,
+.containerStu form .parent-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -84,7 +102,7 @@ form .parent-details .input-box {
 
 /* gender details */
 
-form .gender-details .gender-title {
+form .stugender-details .gender-title {
   font-size: 16px;
   display: flex;
   width: 15%;
@@ -94,7 +112,7 @@ form .gender-details .gender-title {
   /* background: red; */
 }
 
-form .gender-details .catogery {
+form .stugender-details .catogery {
   display: flex;
   width: 30%;
   justify-content: space-between;
@@ -104,12 +122,12 @@ form .gender-details .catogery {
   /* background: red; */
 }
 
-.gender-details .catogery label {
+.stugender-details .catogery label {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 1%;
 }
-form .gender-details .catogery .dot {
+form .stugender-details .catogery .dot {
   height: 18px;
   width: 18px;
   background: #d9d9d9;
@@ -155,11 +173,11 @@ form .button input:hover {
 }
 
 form .response{
-  color: green;
+  color: rgb(9, 167, 9);
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 
 }
 form .error{
@@ -168,12 +186,12 @@ form .error{
   font-weight: 700;
   font-size: 18px;
   text-align: center;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 
 }
 
 @media (max-width: 584px) {
-  .container {
+  .containerStu {
     max-width: 100%;
   }
   form .user-details .input-box,
@@ -181,8 +199,8 @@ form .error{
     margin-bottom: 10px;
     width: 100%;
   }
-  .container form .user-details,
-  .container form .parent-details {
+  .containerStu form .user-details,
+  .containerStu form .parent-details {
     max-height: 220px;
     overflow-y: scroll;
     /* border: 2px solid #9b59b6; */

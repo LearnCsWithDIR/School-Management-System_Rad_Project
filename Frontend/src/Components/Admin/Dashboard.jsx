@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Dashboard() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div>
         <div className="Slider">
           <div className="navigation">
@@ -20,7 +20,7 @@ function Dashboard() {
               </a>
             </li> */}
               <li>
-                <Link to="/Dashboard">
+                <Link to="/Admin">
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
@@ -36,7 +36,7 @@ function Dashboard() {
                 </Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/View-Students">
                   <span className="icon">
                     <ion-icon name="people-outline"></ion-icon>
                   </span>
@@ -79,8 +79,6 @@ function Dashboard() {
           </div>
         </div>
         <div className=""></div>
-        <h1>esdfcg</h1>
-        <p>szdxfcgvmh</p>
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import "./StudentRegister.css";
 import { useState } from "react";
 // handle the http request and response
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function StudentRegister() {
   // get data for useState
@@ -42,7 +43,7 @@ function StudentRegister() {
       .then((response) => {
         setResponseData(response.data.message);
         console.log(response.data.message);
-        alert(response.data.message);
+        // alert(response.data.message);
 
         // successfull store data after clear the user inputs
         if (response.data.message == "New Student Added successful...") {
@@ -76,9 +77,18 @@ function StudentRegister() {
 
   return (
     <>
-      <div className="container">
+      <div className="containerStu">
         <div className="title">Student & Parent Registration</div>
         <form onSubmit={sentData}>
+          <span
+            className={
+              responseData == "New Student Added successful..."
+                ? "response"
+                : "error"
+            }
+          >
+            {responseData}
+          </span>
           <div className="user-details">
             <div className="input-box">
               <span className="details">Student full name</span>
@@ -147,7 +157,7 @@ function StudentRegister() {
                 onChange={(e) => setDepartment(e.target.value)}
                 value={department}
               >
-                <option value="cs" selected>
+                <option value="cs">
                   Computer Science
                 </option>
                 <option value="maths">Mathematics</option>
@@ -157,14 +167,14 @@ function StudentRegister() {
             </div>
           </div>
 
-          <div className="gender-details">
+          <div className="stugender-details">
             <input
               type="radio"
               name="gender"
               id="dot-1"
               checked={gender === "male"}
               onChange={(e) => setGender(e.target.value)}
-              value={gender}
+              value="male"
             />
             <input
               type="radio"
@@ -172,6 +182,8 @@ function StudentRegister() {
               id="dot-2"
               checked={gender === "female"}
               onChange={(e) => setGender(e.target.value)}
+              value="female"
+
             />
             <span className="gender-title">Gender</span>
             <div className="catogery">
@@ -231,16 +243,6 @@ function StudentRegister() {
               />
             </div>
           </div>
-
-          <span
-            className={
-              responseData == "New Student Added successful..."
-                ? "response"
-                : "error"
-            }
-          >
-            {responseData}
-          </span>
 
           <div className="button">
             <input type="submit" value="Register" />
