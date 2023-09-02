@@ -154,6 +154,24 @@ form .button input:hover {
   transition: all 0.3s ease-in;
 }
 
+form .response{
+  color: green;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 10px;
+
+}
+form .error{
+
+  color: red;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 10px;
+
+}
+
 @media (max-width: 584px) {
   .container {
     max-width: 100%;

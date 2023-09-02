@@ -56,7 +56,7 @@ router.route('/add').post(async (req, res) => {
           phone: phone
         },
         authentication: {
-          stu_password: defaultpassword,
+          stu_password: stu_hashedPassword,
           parent_password: parent_hashedPassword,
           verified: verified,
           verificationToken: verificationToken,
@@ -67,7 +67,7 @@ router.route('/add').post(async (req, res) => {
       });
 
       newStudent.save().then(() => {
-        res.json("New Student Added successful")
+        res.json({ message: "New Student Added successful..." })
       }).catch((err) => {
         console.log(err)
       });
