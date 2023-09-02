@@ -89,7 +89,7 @@ form .gender-details .gender-title {
   /* background: red; */
 }
 
-form .gender-details .catogery {
+form .gender-details .catagory {
   display: flex;
   width: 30%;
   justify-content: space-between;
@@ -99,12 +99,12 @@ form .gender-details .catogery {
   /* background: red; */
 }
 
-.gender-details .catogery label {
+.gender-details .catagory label {
   display: flex;
   align-items: center;
   margin-right: 10px;
 }
-form .gender-details .catogery .dot {
+form .gender-details .catagory .dot {
   height: 18px;
   width: 18px;
   background: #d9d9d9;
@@ -114,8 +114,8 @@ form .gender-details .catogery .dot {
   transition: all 0.3s ease-in;
 }
 
-#dot-1:checked ~ .catogery label .one,
-#dot-2:checked ~ .catogery label .two {
+#dot-1:checked ~ .catagory label .one,
+#dot-2:checked ~ .catagory label .two {
   border-color: #d9d9d9;
   background: #9b59b6;
 }
