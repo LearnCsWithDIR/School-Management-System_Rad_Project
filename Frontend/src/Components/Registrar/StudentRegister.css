@@ -35,14 +35,11 @@ body {
 .containerStu .back{
 
   float: right;
-  /* z-index: 5; */
   text-decoration: none;
 
 }
 .containerStu .back a{
 
-  /* float: right; */
-  /* z-index: 5; */
   text-decoration: none;
 
 }
@@ -51,8 +48,8 @@ body {
 .containerStu .title::before {
   content: "";
   position: absolute;
-  left: 352px;
-  bottom: 6px;
+  left: 374px;
+  bottom: 11px;
   height: 4px;
   width: 50px;
   border-radius: 5px;

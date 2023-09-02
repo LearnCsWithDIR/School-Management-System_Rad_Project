@@ -16,12 +16,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<HomePage/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/Admin" element={<Admin/>} />
-        <Route path="/ViewTeacher" element={<ViewTeacher/>} />
-        <Route path="/StudentRegister" element={<StudentRegister/>} />
-        <Route path="/View-Students" element={<ViewStudent/>} />
-        <Route path="/Admin-SRegister" element={<AdminSRegister/>} />
+        <Route path="/login" exact element={<Login/>} />
+        <Route path="/Admin" exact element={<Admin/>} />
+        <Route path="/ViewTeacher" exact element={<ViewTeacher/>} />
+        <Route path="/StudentRegister" exact element={<StudentRegister/>} />
+        <Route path="/View-Students" exact element={<ViewStudent/>} />
+        <Route path="/Admin-SRegister" exact element={<AdminSRegister/>} />
         {/* <Route path="/ViewTeacher" element={<ViewTeacher/>} /> */}
         {/* <Route path="/contact" component={Contact} /> */}
 

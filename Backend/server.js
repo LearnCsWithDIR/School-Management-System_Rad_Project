@@ -56,6 +56,14 @@ app.use("/t", updateTokenRouter);
 const unverifieduser = require("./routes/user/tokenUpdate.js");
 app.use("/ud", unverifieduser);
 
+
+// student functions routing
+
+// connect student get data method
+const studentViewRouter = require("./routes/student/functions.js");
+app.use("/student/f", studentViewRouter);
+
+
 app.listen(PORT, () => {
     console.log("Sever is up and running...");
 });
