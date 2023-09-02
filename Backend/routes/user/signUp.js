@@ -2,7 +2,7 @@ const router = require("express").Router();
 var bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const Student = require("../../models/student/signUp.js");
-const Email = require('../emailVerifyProcess.js') 
+const Email = require('../emailVerifyProcess.js')
 
 
 router.route('/add').post(async (req, res) => {
@@ -20,7 +20,11 @@ router.route('/add').post(async (req, res) => {
     else {
       // Display an success message or redirect the user to a sign-In page
 
-      const defaultpassword = stu_name + "123";
+      const namePart = stu_name.split(" ");
+
+      const firstname = namePart[0].toLowerCase();
+
+      const defaultpassword = firstname + "123";
 
       // Hash the password before saving it
       const stu_hashedPassword = await bcrypt.hash(defaultpassword, 12);
@@ -52,7 +56,7 @@ router.route('/add').post(async (req, res) => {
           phone: phone
         },
         authentication: {
-          stu_password: stu_hashedPassword,
+          stu_password: defaultpassword,
           parent_password: parent_hashedPassword,
           verified: verified,
           verificationToken: verificationToken,
@@ -69,7 +73,7 @@ router.route('/add').post(async (req, res) => {
       });
 
       // email verifiy for pass the data
-      Email.sentEmail(email,verificationURL)
+      Email.sentEmail(email, verificationURL)
 
     }
   } catch (error) {

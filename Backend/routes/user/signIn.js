@@ -18,7 +18,7 @@ router.route('/').post(async (req, res) => {
         const stu_passwordMatch = await bcrypt.compare(userpassword, student.authentication.stu_password);
         const emp_passwordMatch = await bcrypt.compare(userpassword, employee.authentication.emp_password);
         if (stu_passwordMatch) {
-          res.status(200).json({ message: `${student.userDetails.name} Sign-in successful` });
+          res.status(200).json({ message: `${student.userDetails.name} Sign-in successful`, type: "student" });
           return;
         }
         else if(emp_passwordMatch){

@@ -41,9 +41,9 @@ app.use("/signUp", adminSignUpRouter);
 const userSignInRouter = require("./routes/user/signIn.js");
 app.use("/user/signIn", userSignInRouter);
 
-// connect admin signIn file
-const adminSignInRouter = require("./routes/admin/signIn.js");
-app.use("/signIn", adminSignInRouter);
+// // connect admin signIn file
+// const adminSignInRouter = require("./routes/admin/signIn.js");
+// app.use("/signIn", adminSignInRouter);
 
 // connect user email verification file
 const userVerifyRouter = require("./routes/user/emailVerifiy.js");

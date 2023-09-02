@@ -29,7 +29,7 @@ router.get('/verify', async (req, res) => {
       employee.authentication.verified = true;
       employee.authentication.verificationToken = undefined;
       await employee.save();
-      res.status(200).json({ message: 'Email verified successfully' });
+      res.status(200).json({ message: 'Email verified successfully' });  
       return;
       
     } 

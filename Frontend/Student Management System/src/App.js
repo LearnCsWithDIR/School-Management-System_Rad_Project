@@ -16,7 +16,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/Dashboard" element={<Dashboard/>} />
         <Route path="/ViewTeacher" element={<ViewTeacher/>} />
-        <Route path="/StudentRegister" element={<EmployeeRegister/>} />
+        <Route path="/StudentRegister" element={<StudentRegister/>} />
         {/* <Route path="/ViewTeacher" element={<ViewTeacher/>} /> */}
         {/* <Route path="/contact" component={Contact} /> */}
 
