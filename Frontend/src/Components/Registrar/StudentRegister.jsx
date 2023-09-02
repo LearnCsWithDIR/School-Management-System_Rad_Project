@@ -23,7 +23,7 @@ function StudentRegister() {
   function sentData(e) {
     e.preventDefault();
 
-    const newStudemt = {
+    const newStudent = {
       stu_name,
       email,
       DOB,
@@ -36,10 +36,10 @@ function StudentRegister() {
       NIC,
       phone,
     };
-    console.log(newStudemt);
+    console.log(newStudent);
 
     axios
-      .post("http://localhost:8070/user/signUp/add", newStudemt)
+      .post("http://localhost:8070/user/signUp/add", newStudent)
       .then((response) => {
         setResponseData(response.data.message);
         console.log(response.data.message);
@@ -161,7 +161,7 @@ function StudentRegister() {
                   Computer Science
                 </option>
                 <option value="maths">Mathematics</option>
-                <option value="tech">Technolagy</option>
+                <option value="tech">Technology</option>
                 <option value="sci">Science</option>
               </select>
             </div>

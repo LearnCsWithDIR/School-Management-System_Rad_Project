@@ -43,7 +43,7 @@ function TeacherRegister() {
                   Computer Science
                 </option>
                 <option value="maths">Mathematics</option>
-                <option value="tech">Technolagy</option>
+                <option value="tech">Technoloagy</option>
                 <option value="sci">Science</option>
               </select>
             </div>
