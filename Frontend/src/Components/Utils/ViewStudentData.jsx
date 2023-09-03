@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./ViewData.css";
 import axios from "axios";
 
 export default function ViewStudentData() {
   const [studentData, setStudentData] = useState([]);
-
   useEffect(() => {
     function getStudent() {
       axios
@@ -18,8 +17,18 @@ export default function ViewStudentData() {
           console.log(e);
         });
     }
+
     getStudent();
   }, []);
+
+  const deleteUser= (userId) => {
+    axios
+      .delete("http://localhost:8070/student/f/delete/" + userId)
+      .then((res) => {
+        console.log(res.data.status);
+        location.reload();
+      });
+  }
 
   return (
     <>
@@ -27,7 +36,7 @@ export default function ViewStudentData() {
         <div className="DataContainer">
           <Link className="border-shadow" to="/Admin-SRegister">
             <span className="navigator">
-              <ion-icon name="person"></ion-icon>New User
+              <ion-icon name="person"></ion-icon>New User +
             </span>
           </Link>
           <form action="">
@@ -46,10 +55,10 @@ export default function ViewStudentData() {
                 </tr>
               </thead>
               <tbody>
-                {studentData.map((user,index) => {
+                {studentData.map((user, index) => {
                   return (
                     <tr key={index}>
-                      <td>{index+1}</td>
+                      <td>{index + 1}</td>
                       <td>{user.userDetails.name}</td>
                       <td>{user.userDetails.address}</td>
                       <td>{user.email}</td>
@@ -63,7 +72,9 @@ export default function ViewStudentData() {
                             <ion-icon name="create-outline"></ion-icon>
                           </span>
                         </Link>
-                        <Link className="icon-" id={user._id} onClick="">
+                        {/* // delete data */}
+                        <Link className="icon-" id={user._id} onClick={()=> deleteUser(user._id)}>
+
                           <span className="icons" title="Delete">
                             <ion-icon name="trash-outline"></ion-icon>
                           </span>

@@ -54,7 +54,7 @@ router.route("/add").post(async (req, res) => {
             });
 
             newEmployee.save().then(() => {
-                res.json("New Employee Added successful")
+                res.json("New Employee Added successful...")
             }).catch((err) => {
                 console.log(err)
             });

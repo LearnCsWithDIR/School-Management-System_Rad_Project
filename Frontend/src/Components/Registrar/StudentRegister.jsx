@@ -2,7 +2,7 @@ import "./StudentRegister.css";
 import { useState } from "react";
 // handle the http request and response
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function StudentRegister() {
   // get data for useState
@@ -19,6 +19,8 @@ function StudentRegister() {
   const [phone, setphone] = useState("");
 
   const [responseData, setResponseData] = useState("");
+
+  const navigate = useNavigate();
 
   function sentData(e) {
     e.preventDefault();
@@ -59,11 +61,17 @@ function StudentRegister() {
           setNIC("");
           setphone("");
         }
-
+        
         // Set a timeout to change the value after 5 minutes (300,000 milliseconds)
-        const timeoutId = setTimeout(() => {
+        const timeoutId0 = setTimeout(() => {
           setResponseData("");
         }, 5000);
+        
+        // navigation
+        const timeoutId1 = setTimeout(() => {
+          navigate("/");
+        }, 7000);
+        
 
         // Clean up the timeout if the component unmounts or before another value change
         // return () => {

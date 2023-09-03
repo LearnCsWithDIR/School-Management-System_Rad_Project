@@ -4,21 +4,18 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
 function EmployeeRegister() {
-   // get data for useState
-   const [emp_name, setName] = useState("");
-   const [email, setEmail] = useState("");
-   const [address, setAddress] = useState("");
-   const [city, setCity] = useState("");
-   const [NIC, setNIC] = useState("");
-   const [phone, setphone] = useState("");
-   const [gender, setGender] = useState("male");
-   const [emp_type, setEmpType] = useState("regi");
-   //const [emp_type, setEmpType] = useState("");
-  
+  // get data for useState
+  const [emp_name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [NIC, setNIC] = useState("");
+  const [phone, setphone] = useState("");
+  const [gender, setGender] = useState("male");
+  const [emp_type, setEmpType] = useState("regi");
 
-   const [responseData, setResponseData] = useState("");
+  const [responseData, setResponseData] = useState("");
 
   function sentData(e) {
     e.preventDefault();
@@ -32,12 +29,11 @@ function EmployeeRegister() {
       phone,
       gender,
       emp_type,
-
     };
     console.log(newEmployee);
 
     axios
-      .post("http://localhost:8070/user/signUp/add", newEmployee)
+      .post("http://localhost:8070/signUp/add", newEmployee)
       .then((response) => {
         setResponseData(response.data.message);
         console.log(response.data.message);
@@ -55,25 +51,24 @@ function EmployeeRegister() {
           setEmpType("regi");
         }
 
-        // Set a timeout to change the value after 5 minutes (300,000 milliseconds)
+        // Set a timeout to change the value after 5 seconds
         const timeoutId = setTimeout(() => {
           setResponseData("");
         }, 5000);
 
         // Clean up the timeout if the component unmounts or before another value change
-        // return () => {
-        //   clearTimeout(timeoutId);
-        // };
+        return () => {
+          clearTimeout(timeoutId);
+        };
       })
       .catch((e) => {
         console.log(e);
       });
   }
 
-
-    return (
-      <>
-       <div className="container1">
+  return (
+    <>
+      <div className="container1">
         <div className="emptitle">Employee Registration</div>
         <form onSubmit={sentData}>
           <span
@@ -124,7 +119,6 @@ function EmployeeRegister() {
               />
             </div>
 
-
             <div className="input-box">
               <span className="details">City</span>
               <input
@@ -167,12 +161,9 @@ function EmployeeRegister() {
                 onChange={(e) => setEmpType(e.target.value)}
                 value={emp_type}
               >
-                <option value="regi">
-                  Registrar
-                </option>
+                <option value="regi">Registrar</option>
                 <option value="pay">Payment Handler</option>
                 <option value="coadmin">Co-Admin</option>
-
               </select>
             </div>
           </div>
@@ -193,7 +184,6 @@ function EmployeeRegister() {
               checked={gender === "female"}
               onChange={(e) => setGender(e.target.value)}
               value="female"
-
             />
             <span className="gender-title">Gender</span>
             <div className="catagory">
@@ -217,4 +207,4 @@ function EmployeeRegister() {
     </>
   );
 }
-  export default EmployeeRegister;
+export default EmployeeRegister;

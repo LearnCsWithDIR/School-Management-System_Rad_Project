@@ -19,11 +19,13 @@ a {
 }
 
 #component {
-  max-width: 1024px;
+  max-width: 1200px;
   margin: auto;
-  position: fixed;
-  top: 100px;
-  left: 310px;
+  position: relative;
+  top: 50px;
+  left: 120px;
+  /* max-height: 700px; */
+  /* overflow-y: scroll; */
 }
 
 .navigator ion-icon {
@@ -81,9 +83,10 @@ table {
   width: 100%;
   max-height: 500px;
   overflow-y: scroll;
-
 }
-
+.table tbody td {
+  border-bottom: 0.5px solid black;
+}
 .table td,
 .table th {
   padding: 0.75em;
@@ -92,9 +95,10 @@ table {
   color: #bf94cf;
   /* border-top: 1px solid var(--border); */
 }
-.table tbody tr:hover td{
-    background-color: #32383e;
-    color: white;
+.table tbody tr:hover td {
+  background-color: #32383e;
+  color: white;
+  border-bottom: none;
 }
 .table td > a.btn {
   padding: 0.3em 1em;
