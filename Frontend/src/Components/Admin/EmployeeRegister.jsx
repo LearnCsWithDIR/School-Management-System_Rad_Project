@@ -186,7 +186,7 @@ function EmployeeRegister() {
               value="female"
             />
             <span className="gender-title">Gender</span>
-            <div className="catagory">
+            <div className="category">
               <label for="dot-1">
                 <span className="dot one" value="male"></span>
                 <span className="gender">Male</span>
