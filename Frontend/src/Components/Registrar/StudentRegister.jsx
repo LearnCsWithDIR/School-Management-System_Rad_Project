@@ -193,7 +193,7 @@ function StudentRegister() {
 
             />
             <span className="gender-title">Gender</span>
-            <div className="catogery">
+            <div className="category">
               <label for="dot-1">
                 <span className="dot one" value="male"></span>
                 <span className="gender">Male</span>
