@@ -118,6 +118,17 @@ table {
   border-color: #32383e;
 }
 
+#verified-icon1{
+
+  color: rgb(6, 211, 6);
+  font-size: 35px;
+
+}
+#verified-icon2{
+
+  color: rgb(163, 17, 17);
+  font-size: 35px;
+}
 @media only screen and (max-width: 1024px) {
   table,
   thead,

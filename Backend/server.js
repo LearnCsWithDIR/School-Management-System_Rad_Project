@@ -59,9 +59,13 @@ app.use("/ud", unverifieduser);
 
 // student functions routing
 
-// connect student get data method
+// connect student functions
 const studentViewRouter = require("./routes/student/functions.js");
 app.use("/student/f", studentViewRouter);
+
+// connect employee functions
+const EmployeeViewRouter = require("./routes/admin/functions.js");
+app.use("/af/f", EmployeeViewRouter);
 
 
 app.listen(PORT, () => {

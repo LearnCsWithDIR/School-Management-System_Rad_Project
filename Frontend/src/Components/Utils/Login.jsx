@@ -5,9 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [useremail, setUserName] = useState("");
+  const [email, setUserName] = useState("");
   const [userpassword, setPassword] = useState("");
-  const [userType, setuserType] = useState([]);
+  const [userType, setuserType] = useState("");
 
   // for response success message
   const [message, setMessage] = useState("");
@@ -19,41 +19,55 @@ function Login() {
     e.preventDefault();
 
     const UserLogin = {
-      useremail,
+      email,
       userpassword,
     };
 
     axios
       .post("http://localhost:8070/user/signIn", UserLogin)
       .then((res) => {
+        console.log(res.data);
         setuserType(res.data.type);
         setMessage(res.data.message);
-        console.log(res.data);
+        console.log(userType);
+
+        if (res.data.message == "Sign-in successful") {
+          setUserName("");
+          setPassword("");
+        }
+
+        // <option value="Payment Handler">Payment Handler</option>
+
+        // Set a timeout to change the value after 3 seconds
+        const timeoutId0 = setTimeout(() => {
+          setMessage("");
+        }, 2000);
+        const timeoutId1 = setTimeout(() => {
+          if (res.data.type == "Admin" || res.data.type == "Co-Admin") {
+            navigate("/Admin");
+          } else if (res.data.type == "Student") {
+            console.log("navigate");
+            navigate("/Admin");
+          } else if (res.data.type == "Registrar") {
+            console.log("navigate");
+            navigate("/Admin");
+          }
+        }, 3000);
+        // setuserType("");
+
+        return () => {
+          clearTimeout(timeoutId0);
+          clearTimeout(timeoutId1);
+        };
       })
       .catch((e) => {
         console.log(e);
       });
 
-    if (message == "Sign-in successful") {
-      setUserName("");
-      setPassword("");
-    }
+    console.log(message);
 
-    // "Registrar">Registrar</option>
-    // <option value="Payment Handler">Payment Handler</option>
-    // <option value="Co-Admin">
+    console.log(userType);
 
-    // Set a timeout to change the value after 5 minutes (300,000 milliseconds)
-    const timeoutId0 = setTimeout(() => {
-      // setMessage("");
-      setuserResponse((userResponse.message = ""));
-    }, 3000);
-
-    if (userResponse.type == "Admin" || userResponse.type == "Co-Admin") {
-      navigate("/Admin");
-    }
-    console.log(UserLogin);
-    // alert(UserLogin);
   }
   return (
     <>
@@ -76,6 +90,7 @@ function Login() {
                 type="text"
                 placeholder="Enter Username"
                 required
+                value={email}
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
@@ -86,6 +101,7 @@ function Login() {
                 type={showpassword ? "text" : "password"}
                 placeholder="Enter Passsword"
                 required
+                value={userpassword}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

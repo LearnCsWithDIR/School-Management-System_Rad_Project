@@ -27,6 +27,7 @@ export default function ViewStudentData() {
       .delete("http://localhost:8070/student/f/delete/" + userId)
       .then((res) => {
         console.log(res.data.status);
+        alert("Are you Sure ?");
         location.reload();
       });
   };
@@ -66,7 +67,17 @@ export default function ViewStudentData() {
                       <td>{user.userDetails.department}</td>
                       <td>{user.parentDetails.name}</td>
                       <td>{user.parentDetails.phone}</td>
-                      <td>{`${user.authentication.verified}`}</td>
+                      <td>
+                        {user.authentication.verified ? (
+                          <span id="verified-icon1">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                          </span>
+                        ) : (
+                          <span id="verified-icon2">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                          </span>
+                        )}
+                      </td>
 
                       <td>
                         <Link className="icon-" to="">

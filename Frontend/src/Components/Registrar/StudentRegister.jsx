@@ -62,15 +62,15 @@ function StudentRegister() {
           setphone("");
         }
         
-        // Set a timeout to change the value after 5 minutes (300,000 milliseconds)
+        // Set a timeout to change the value after 3 seconds
         const timeoutId0 = setTimeout(() => {
           setResponseData("");
         }, 3000);
         
         // navigation
-        // const timeoutId1 = setTimeout(() => {
-        //   navigate("/");
-        // }, 7000);
+        const timeoutId1 = setTimeout(() => {
+          navigate("/View-Students");
+        }, 4000);
         
         // Clean up the timeout if the component unmounts or before another value change
         return () => {

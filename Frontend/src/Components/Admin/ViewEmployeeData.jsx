@@ -4,13 +4,13 @@ import "../Utils/ViewData.css";
 import axios from "axios";
 
 export default function ViewEmployeeData() {
-  const [studentData, setStudentData] = useState([]);
+  const [EmployeeData, setEmployeeData] = useState([]);
   useEffect(() => {
-    function getStudent() {
+    function getEmployee() {
       axios
-        .get("http://localhost:8070/student/f/view")
+        .get("http://localhost:8070/af/f/view")
         .then((res) => {
-          setStudentData(res.data);
+          setEmployeeData(res.data);
           console.log(res.data);
         })
         .catch((e) => {
@@ -18,17 +18,16 @@ export default function ViewEmployeeData() {
         });
     }
 
-    getStudent();
+    getEmployee();
   }, []);
 
-  const deleteUser= (userId) => {
-    axios
-      .delete("http://localhost:8070/student/f/delete/" + userId)
-      .then((res) => {
-        console.log(res.data.status);
-        location.reload();
-      });
-  }
+  const deleteUser = (userId) => {
+    axios.delete("http://localhost:8070/af/f/delete/" + userId).then((res) => {
+      console.log(res.data.status);
+      alert("Are you Sure ?");
+      location.reload();
+    });
+  };
 
   return (
     <>
@@ -55,17 +54,27 @@ export default function ViewEmployeeData() {
                 </tr>
               </thead>
               <tbody>
-                {studentData.map((user, index) => {
+                {EmployeeData.map((user, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{user.userDetails.name}</td>
-                      <td>{user.userDetails.address}</td>
+                      <td>{user.empDetails.name}</td>
+                      <td>{user.empDetails.address}</td>
                       <td>{user.email}</td>
-                      <td>{user.userDetails.department}</td>
-                      <td>{user.parentDetails.name}</td>
-                      <td>{user.parentDetails.phone}</td>
-                      <td>{user.authentication.verified}</td>
+                      <td>{user.empDetails.NIC}</td>
+                      <td>{user.empDetails.phone}</td>
+                      <td>{user.empDetails.emp_type}</td>
+                      <td>
+                        {user.authentication.verified ? (
+                          <span id="verified-icon1">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                          </span>
+                        ) : (
+                          <span id="verified-icon2">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                          </span>
+                        )}
+                      </td>
                       <td>
                         <Link className="icon-" to="">
                           <span className="icons" title="Edit">
@@ -73,8 +82,11 @@ export default function ViewEmployeeData() {
                           </span>
                         </Link>
                         {/* // delete data */}
-                        <Link className="icon-" id={user._id} onClick={()=> deleteUser(user._id)}>
-
+                        <Link
+                          className="icon-"
+                          id={user._id}
+                          onClick={() => deleteUser(user._id)}
+                        >
                           <span className="icons" title="Delete">
                             <ion-icon name="trash-outline"></ion-icon>
                           </span>

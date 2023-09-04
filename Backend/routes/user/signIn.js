@@ -5,45 +5,60 @@ const Employee = require("../../models/employee/signUp.js")
 
 
 router.route('/').post(async (req, res) => {
-  const { useremail, userpassword } = req.body;
+  const { email, userpassword } = req.body;
 
   try {
 
     // Find the email
-    const student = await Student.findOne({ useremail });
-    const employee = await Employee.findOne({ useremail });
+    const student = await Student.findOne({ email });
+    const employee = await Employee.findOne({ email });
 
-    if (student || employee) {
 
-      if (student.authentication.verified == true) {
-        // password checker
-        const stu_passwordMatch = await bcrypt.compare(userpassword, student.authentication.stu_password);
+    if (employee) {
+      if (employee.authentication.verified == true) {
+
         const emp_passwordMatch = await bcrypt.compare(userpassword, employee.authentication.emp_password);
-        if (stu_passwordMatch) {
-          res.status(200).json({ sucess: true, message: "Sign-in successful", type: "student" });
-          return;
-        }
-        else if (emp_passwordMatch) {
-          res.status(200).json({ sucess: true, message: "Sign-in successful", type: employee.emp_type });
-          return;
-
-        }
-        else {
-          res.status(200).json({ sucess: false, message: 'Invalid Email or Password' });
-          return;
-        }
-
-      } else {
-        res.status(200).json({ sucess: false, massage: "Please Verifed your Email" });
+        const type = employee.empDetails.emp_type
+        responseResult(emp_passwordMatch, type);
+      }
+      else {
+        res.status(200).json({ sucess: false, message: 'Please Verifed your Email' });
         return;
       }
     }
-    else {
-      res.status(200).json({ sucess: false, message: 'Invalid Email or Password' });
-      // Display an error message or redirect the user to a sign-up page
-      return;
+    else if (student) {
 
+      if (student.authentication.verified == true) {
+        const stu_passwordMatch = await bcrypt.compare(userpassword, student.authentication.stu_password);
+        const type = "student";
+        responseResult(stu_passwordMatch, type);
+
+      }
+      else {
+        res.status(200).json({ sucess: false, message: 'Please Verifed your Email' });
+        return;
+
+      }
     }
+    else {
+      res.status(200).json({ sucess: false, message: 'Invalid Email' });
+      return;
+    }
+
+    function responseResult(matchPassword, type) {
+      // password checker
+      if (matchPassword) {
+        res.status(200).json({ sucess: true, message: "Sign-in successful", type: type });
+        return;
+      }
+      else {
+        res.status(200).json({ sucess: false, message: 'Invalid Email or Password' });
+        return;
+      }
+    }
+
+
+
   } catch (error) {
     console.error('Error signing in:', error);
     res.status(500).json({ message: 'Internal server error' });
