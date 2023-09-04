@@ -16,7 +16,7 @@ body {
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 
-.container1 {
+.containerTeach {
   max-width: 700px;
   width: 100%;
   background: #fff;
@@ -24,13 +24,13 @@ body {
   border-radius: 15px;
 }
 
-.container1 .Teachertitle {
+.containerTeach .Teachertitle {
   font-size: 25px;
   font-weight: 500;
   position: relative;
 }
 
-.container1 .Teachertitle::before {
+.containerTeach .Teachertitle::before {
   content: "";
   position: absolute;
   left: 263px;
@@ -44,7 +44,7 @@ body {
 
 /* student form details  */
 
-.container1 form .user-details {
+.containerTeach form .user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -150,14 +150,14 @@ form .button input:hover {
 }
 
 @media (max-width: 584px) {
-  .container1 {
+  .containerTeach {
     max-width: 100%;
   }
   form .user-details .input-box {
     margin-bottom: 10px;
     width: 100%;
   }
-  .container1 form .user-details {
+  .containerTeach form .user-details {
     max-height: 220px;
     overflow-y: scroll;
     /* border: 2px solid #9b59b6; */

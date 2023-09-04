@@ -129,6 +129,18 @@ table {
   color: rgb(163, 17, 17);
   font-size: 35px;
 }
+
+#No-Data{
+
+  font-size: 50px;
+  font-weight: 500;
+  color: #71b7e6;
+  position: absolute;
+  left: -100px;
+  width: 1500px;
+}
+
+
 @media only screen and (max-width: 1024px) {
   table,
   thead,

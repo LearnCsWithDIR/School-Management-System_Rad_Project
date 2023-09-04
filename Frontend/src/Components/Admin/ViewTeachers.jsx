@@ -1,12 +1,15 @@
 import React from "react";
-
-function ViewTeacher(){
-
-    return <>
-    
-    
-    
+import "./ViewStudent.css";
+import { Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
+import ViewTeacherData from "./ViewTeacherData";
+function ViewTeacher() {
+  return (
+    <>
+      <Dashboard />
+      <ViewTeacherData />
     </>
+  );
 }
 
-export default  ViewTeacher;
+export default ViewTeacher;

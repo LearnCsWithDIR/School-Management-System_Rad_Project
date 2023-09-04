@@ -20,10 +20,9 @@ router.route('/add').post(async (req, res) => {
     else {
       // Display an success message or redirect the user to a sign-In page
 
-      const defaultpassword = teacher_name + "123";
 
       // Hash the password before saving it
-      const teacher_hashedPassword = await bcrypt.hash(defaultpassword, 12);
+      const teacher_hashedPassword = await bcrypt.hash(NIC, 12);
 
       // Generate the current date and time
       const signUpDate = new Date();
@@ -36,7 +35,7 @@ router.route('/add').post(async (req, res) => {
 
       const newTeacher = new Teacher({
         email: email,
-        userDetails: {
+        teacherDetails: {
           name: teacher_name,
           gender: gender,
           NIC: NIC,
@@ -58,7 +57,7 @@ router.route('/add').post(async (req, res) => {
       });
 
       newTeacher.save().then(() => {
-        res.json("New Teacher Added successful")
+        res.json( {message : "New Teacher Added successful..."})
       }).catch((err) => {
         console.log(err)
       });

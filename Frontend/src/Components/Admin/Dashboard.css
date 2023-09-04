@@ -46,7 +46,7 @@ body {
   margin-left: 10px;
   margin-top: 75px;
   position: absolute;
-  top: 0;
+  top: -50px;
   left: 0;
   width: 100%;
 }
@@ -60,14 +60,18 @@ body {
   border-bottom-left-radius: 30px;
 }
 
-.navigation ul li:hover {
+.navigation ul li:hover{
   background-color: var(--white);
 }
 
-/* .navigation ul li:nth-child(1) {
+.navigation ul li:nth-child(1) {
   margin-bottom: 40px;
   pointer-events: none;
-} */
+}
+.navigation ul li:nth-child(7) {
+  margin-top: 60px;
+
+}
 
 .navigation ul li:nth-child(7):hover a {
   color: red;
@@ -113,6 +117,12 @@ body {
   white-space: nowrap;
 }
 
+.navigation ul li .title123 {
+  font-size: 30px;
+  margin-left: 15px;
+  font-weight: 700;
+  color: white;
+}
 /* Curves the outside of navigation hovers */
 
 .navigation ul li:hover a::before {

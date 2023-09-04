@@ -1,7 +1,8 @@
 const router = require("express").Router();
 let Student = require("../../models/student/signUp.js");
 var bcrypt = require('bcryptjs');
-const Employee = require("../../models/employee/signUp.js")
+const Employee = require("../../models/employee/signUp.js");
+const Teacher = require("../../models/teacher/signUp.js");
 
 
 router.route('/').post(async (req, res) => {
@@ -12,6 +13,7 @@ router.route('/').post(async (req, res) => {
     // Find the email
     const student = await Student.findOne({ email });
     const employee = await Employee.findOne({ email });
+    const teacher = await Teacher.findOne({ email });
 
 
     if (employee) {
@@ -32,6 +34,20 @@ router.route('/').post(async (req, res) => {
         const stu_passwordMatch = await bcrypt.compare(userpassword, student.authentication.stu_password);
         const type = "student";
         responseResult(stu_passwordMatch, type);
+
+      }
+      else {
+        res.status(200).json({ sucess: false, message: 'Please Verifed your Email' });
+        return;
+
+      }
+    }
+    else if (teacher) {
+
+      if (teacher.authentication.verified == true) {
+        const tea_passwordMatch = await bcrypt.compare(userpassword, student.authentication.stu_password);
+        const type = "teacher";
+        responseResult(tea_passwordMatch, type);
 
       }
       else {

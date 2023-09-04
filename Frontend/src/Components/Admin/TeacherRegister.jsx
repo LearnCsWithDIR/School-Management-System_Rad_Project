@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 function TeacherRegister() {
 
   // get data for useState
@@ -37,7 +38,7 @@ function TeacherRegister() {
     console.log(newTeacher);
 
     axios
-      .post("http://localhost:8070/signUp/add", newEmployee)
+      .post("http://localhost:8070/teacher/signUp/add", newTeacher)
       .then((response) => {
         setResponseData(response.data.message);
         console.log(response.data.message);

@@ -29,13 +29,17 @@ connection.once("open", () => {
 });
 
 
-// connect user signUp file
-const userSignUpRouter = require("./routes/user/signUp.js");
+// connect student signUp file
+const userSignUpRouter = require("./routes/student/signUp.js");
 app.use("/user/signUp", userSignUpRouter);
 
 // connect admin signUp file
 const adminSignUpRouter = require("./routes/admin/signUp.js");
 app.use("/signUp", adminSignUpRouter);
+
+// connect teacher signUp file
+const techerSignUpRouter = require("./routes/teacher/signUp.js");
+app.use("/teacher/signUp", techerSignUpRouter);
 
 // connect user signIn file
 const userSignInRouter = require("./routes/user/signIn.js");
@@ -66,6 +70,10 @@ app.use("/student/f", studentViewRouter);
 // connect employee functions
 const EmployeeViewRouter = require("./routes/admin/functions.js");
 app.use("/af/f", EmployeeViewRouter);
+
+// connect teacher functions
+const TeacherViewRouter = require("./routes/teacher/functions.js");
+app.use("/teacher/f", TeacherViewRouter);
 
 
 app.listen(PORT, () => {
