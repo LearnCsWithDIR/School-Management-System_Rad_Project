@@ -27,7 +27,7 @@ class Navbar extends Component {
                     
                      <div>
                         <ul id="navbarIcon">
-                            <li><Link to="/login"><i id="profile" className="far fa-user-circle"></i></Link></li>
+                            <li><Link to="/login" title="Login"><i id="profile" className="far fa-user-circle"></i></Link></li>
                         </ul>
                     </div>
 

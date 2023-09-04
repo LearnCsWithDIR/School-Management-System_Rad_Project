@@ -9,7 +9,8 @@ import Admin from './Components/Admin/Admin';
 import ViewTeacher from './Components/Admin/ViewTeachers';
 import ViewStudent from './Components/Admin/ViewStudent';
 import AdminSRegister from './Components/Admin/AdminSRegister';
-
+import AdminERegister from './Components/Admin/AdminERegister';
+import ViewEmployee from './Components/Admin/ViewEmployee';
 function App() {
   return (
     <>
@@ -21,7 +22,10 @@ function App() {
         <Route path="/ViewTeacher" exact element={<ViewTeacher/>} />
         <Route path="/StudentRegister" exact element={<StudentRegister/>} />
         <Route path="/View-Students" exact element={<ViewStudent/>} />
+        <Route path="/View-Employee" exact element={<ViewEmployee/>} />
         <Route path="/Admin-SRegister" exact element={<AdminSRegister/>} />
+        <Route path="/Admin-ERegister" exact element={<AdminERegister/>} />
+        <Route path="/Employee-Register" exact element={<EmployeeRegister/>} />
         {/* <Route path="/ViewTeacher" element={<ViewTeacher/>} /> */}
         {/* <Route path="/contact" component={Contact} /> */}
 

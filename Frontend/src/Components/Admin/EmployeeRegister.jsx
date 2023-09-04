@@ -13,7 +13,7 @@ function EmployeeRegister() {
   const [NIC, setNIC] = useState("");
   const [phone, setphone] = useState("");
   const [gender, setGender] = useState("male");
-  const [emp_type, setEmpType] = useState("regi");
+  const [emp_type, setEmpType] = useState("Registrar");
 
   const [responseData, setResponseData] = useState("");
 
@@ -48,13 +48,13 @@ function EmployeeRegister() {
           setGender("male");
           setNIC("");
           setphone("");
-          setEmpType("regi");
+          setEmpType("Registrar");
         }
 
         // Set a timeout to change the value after 5 seconds
         const timeoutId = setTimeout(() => {
           setResponseData("");
-        }, 5000);
+        }, 3000);
 
         // Clean up the timeout if the component unmounts or before another value change
         return () => {
@@ -161,9 +161,9 @@ function EmployeeRegister() {
                 onChange={(e) => setEmpType(e.target.value)}
                 value={emp_type}
               >
-                <option value="regi">Registrar</option>
-                <option value="pay">Payment Handler</option>
-                <option value="coadmin">Co-Admin</option>
+                <option value="Registrar">Registrar</option>
+                <option value="Payment Handler">Payment Handler</option>
+                <option value="Co-Admin">Co-Admin</option>
               </select>
             </div>
           </div>

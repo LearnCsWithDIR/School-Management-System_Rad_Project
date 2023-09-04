@@ -1,15 +1,15 @@
 import "../Registrar/StudentRegister.css";
 import { useState } from "react";
 import Dashboard from "./Dashboard";
-import StudentRegister from "../Registrar/StudentRegister";
+import EmployeeRegister from "./EmployeeRegister";
 
-function AdminSRegister() {
+function AdminERegister() {
   return (
     <>
       <Dashboard />
-      <StudentRegister />
+      <EmployeeRegister/>
     </>
   );
 }
 
-export default AdminSRegister;
+export default AdminERegister;

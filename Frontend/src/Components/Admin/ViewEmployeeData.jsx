@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./ViewData.css";
+import "../Utils/ViewData.css";
 import axios from "axios";
 
-export default function ViewStudentData() {
+export default function ViewEmployeeData() {
   const [studentData, setStudentData] = useState([]);
   useEffect(() => {
     function getStudent() {
@@ -12,7 +12,6 @@ export default function ViewStudentData() {
         .then((res) => {
           setStudentData(res.data);
           console.log(res.data);
-          console.log(res.data[0].authentication.verified);
         })
         .catch((e) => {
           console.log(e);
@@ -22,22 +21,22 @@ export default function ViewStudentData() {
     getStudent();
   }, []);
 
-  const deleteUser = (userId) => {
+  const deleteUser= (userId) => {
     axios
       .delete("http://localhost:8070/student/f/delete/" + userId)
       .then((res) => {
         console.log(res.data.status);
         location.reload();
       });
-  };
+  }
 
   return (
     <>
       <div id="component">
         <div className="DataContainer">
-          <Link className="border-shadow" to="/Admin-SRegister">
+          <Link className="border-shadow" to="/Admin-ERegister">
             <span className="navigator">
-              <ion-icon name="person"></ion-icon>New Student +
+              <ion-icon name="person"></ion-icon>New Employee +
             </span>
           </Link>
           <form action="">
@@ -48,9 +47,9 @@ export default function ViewStudentData() {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Email</th>
-                  <th>Department</th>
-                  <th>Parent Name</th>
+                  <th>NIC</th>
                   <th>Phone number</th>
+                  <th>Type</th>
                   <th>Verified</th>
                   <th>Actions</th>
                 </tr>
@@ -66,8 +65,7 @@ export default function ViewStudentData() {
                       <td>{user.userDetails.department}</td>
                       <td>{user.parentDetails.name}</td>
                       <td>{user.parentDetails.phone}</td>
-                      <td>{`${user.authentication.verified}`}</td>
-
+                      <td>{user.authentication.verified}</td>
                       <td>
                         <Link className="icon-" to="">
                           <span className="icons" title="Edit">
@@ -75,11 +73,8 @@ export default function ViewStudentData() {
                           </span>
                         </Link>
                         {/* // delete data */}
-                        <Link
-                          className="icon-"
-                          id={user._id}
-                          onClick={() => deleteUser(user._id)}
-                        >
+                        <Link className="icon-" id={user._id} onClick={()=> deleteUser(user._id)}>
+
                           <span className="icons" title="Delete">
                             <ion-icon name="trash-outline"></ion-icon>
                           </span>

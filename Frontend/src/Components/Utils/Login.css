@@ -83,6 +83,23 @@ form #user-details_login .input-box_login {
   height: 45px;
   /* margin: 45px 0; */
 }
+input[type="checkbox"]{
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  position: relative;
+  top: -16px;
+  font-size: 20px;
+  width: 19px;
+  height: 19px;
+}
+.details_login_check{
+  position: relative;
+  top: -20px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
 
 form #button_login input {
   height: 100%;

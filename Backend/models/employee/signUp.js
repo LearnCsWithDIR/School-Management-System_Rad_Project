@@ -24,7 +24,7 @@ const employeeSchema = new Schema({
       required: true,
     },
     NIC: {
-      type: Date,
+      type: String,
       required: true,
     },
     phone: {

@@ -44,12 +44,12 @@ function Dashboard() {
                 </Link>
               </li>
               <li>
-                <a href="">
+                <Link to="/View-Employee">
                   <span className="icon">
                     <ion-icon name="people-outline"></ion-icon>
                   </span>
                   <span className="title1">Employees</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="">
@@ -68,12 +68,12 @@ function Dashboard() {
                 </a>
               </li>
               <li>
-                <a href="">
+                <Link to="/">
                   <span className="icon">
                     <ion-icon name="log-out-outline"></ion-icon>
                   </span>
                   <span className="title1">Sign Out</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

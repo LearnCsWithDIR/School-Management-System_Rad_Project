@@ -11,10 +11,10 @@ function StudentRegister() {
   const [DOB, setDOB] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [department, setDepartment] = useState("cs");
+  const [department, setDepartment] = useState("Computer Science");
   const [gender, setGender] = useState("male");
   const [parent_name, setParentName] = useState("");
-  const [relationship, setRelationship] = useState("");
+  const [relationship, setRelationship] = useState("Mother");
   const [NIC, setNIC] = useState("");
   const [phone, setphone] = useState("");
 
@@ -54,10 +54,10 @@ function StudentRegister() {
           setDOB("");
           setAddress("");
           setCity("");
-          setDepartment("cs");
+          setDepartment("Computer Science");
           setGender("male");
           setParentName("");
-          setRelationship("");
+          setRelationship("Mother");
           setNIC("");
           setphone("");
         }
@@ -65,18 +65,17 @@ function StudentRegister() {
         // Set a timeout to change the value after 5 minutes (300,000 milliseconds)
         const timeoutId0 = setTimeout(() => {
           setResponseData("");
-        }, 5000);
+        }, 3000);
         
         // navigation
-        const timeoutId1 = setTimeout(() => {
-          navigate("/");
-        }, 7000);
+        // const timeoutId1 = setTimeout(() => {
+        //   navigate("/");
+        // }, 7000);
         
-
         // Clean up the timeout if the component unmounts or before another value change
-        // return () => {
-        //   clearTimeout(timeoutId);
-        // };
+        return () => {
+          clearTimeout(timeoutId0);
+        };
       })
       .catch((e) => {
         console.log(e);
@@ -165,12 +164,12 @@ function StudentRegister() {
                 onChange={(e) => setDepartment(e.target.value)}
                 value={department}
               >
-                <option value="cs">
+                <option value="Computer Science">
                   Computer Science
                 </option>
-                <option value="maths">Mathematics</option>
-                <option value="tech">Technology</option>
-                <option value="sci">Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Technology">Technology</option>
+                <option value="Science">Science</option>
               </select>
             </div>
           </div>
@@ -220,13 +219,27 @@ function StudentRegister() {
 
             <div className="input-box">
               <span className="details">Parent with relationship</span>
+              <select
+                name="department"
+                id="department"
+                required
+                onChange={(e) => setRelationship(e.target.value)}
+                value={relationship}
+              >
+                <option value="Mother">
+                  Mother
+                </option>
+                <option value="Father">Father</option>
+                <option value="Other">Other</option>
+              </select>
+{/*               
               <input
                 type="text"
                 placeholder="Relationship"
                 required
                 onChange={(e) => setRelationship(e.target.value)}
                 value={relationship}
-              />
+              /> */}
             </div>
 
             <div className="input-box">

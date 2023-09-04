@@ -16,7 +16,7 @@ router.get('/verify', async (req, res) => {
     const employee = await Employee.findOne({ "authentication.verificationToken": token });
 
     if (student) {
-      // Update the user's verification status
+      // Update the student's verification status
       student.authentication.verified = true;
       student.authentication.verificationToken = undefined;
       await student.save();
@@ -25,7 +25,7 @@ router.get('/verify', async (req, res) => {
     } 
     
     else if (employee) {
-      // Update the user's verification status
+      // Update the employee's verification status
       employee.authentication.verified = true;
       employee.authentication.verificationToken = undefined;
       await employee.save();

@@ -8,9 +8,7 @@ function ViewStudent() {
   return (
     <>
       <Dashboard />
-      {/* <Link to="/Admin-SRegister"> Add Students</Link> */}
       <ViewStudentData/>
-      {/* <StudentRegister/> */}
     </>
   );
 }
