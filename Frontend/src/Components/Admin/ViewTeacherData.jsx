@@ -16,11 +16,6 @@ export default function ViewTeacherData() {
         .catch((e) => {
           console.log(e);
         });
-
-      const valid =
-        teacherData == null ? console.log(true) : console.log(false);
-      console.log(valid);
-      console.log(teacherData.length == 0);
     }
 
     getTeacher();
@@ -70,7 +65,7 @@ export default function ViewTeacherData() {
                           <td>{user.teacherDetails.name}</td>
                           <td>{user.email}</td>
                           <td>{user.teacherDetails.NIC}</td>
-                          <td>{user.teacherDetails.phone}</td>
+                          <td>{user.teacherDetails.phoneNo}</td>
                           <td>{user.teacherDetails.department}</td>
                           <td>{user.teacherDetails.subject}</td>
                           <td>

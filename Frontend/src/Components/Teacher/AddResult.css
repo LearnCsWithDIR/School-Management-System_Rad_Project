@@ -1,0 +1,29 @@
+form tr td input[type="submit"]{
+
+    font-size: 20px;
+    width: 140px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+form tr td #add{
+    background-color: transparent;
+    border: 1px solid rgb(16, 129, 22);
+    color: rgb(66, 255, 75);
+}
+form tr td #pending{
+    border: 0;
+    background-color: rgb(109, 0, 0);
+    color: rgb(168, 167, 167);
+    font-weight: 500;
+}
+form tr td #success{
+    color: rgb(168, 167, 167);
+    font-weight: 500;
+}
+
+form tr td #add:hover{
+    background-color: rgb(16, 129, 22);
+    color:white;
+    transition: 0.5s ease;
+}

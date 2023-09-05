@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter , Routes, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Switch ,useLocation} from 'react-router-dom';
 import StudentRegister from './Components/Registrar/StudentRegister';
 import TeacherRegister from './Components/Admin/TeacherRegister';
 import EmployeeRegister from './Components/Admin/EmployeeRegister';
@@ -12,10 +12,30 @@ import AdminSRegister from './Components/Admin/AdminSRegister';
 import AdminERegister from './Components/Admin/AdminERegister';
 import ViewEmployee from './Components/Admin/ViewEmployee';
 import AdminTRegister from './Components/Admin/AdminTRegister';
+
+import AddResult from './Components/Teacher/AddResult';
+import TeacherDashboard from './Components/Teacher/TeacherDashboard';
+import TViewStudentData from './Components/Teacher/TViewStudentData';
+import TeacherSRegister from './Components/Teacher/TeacherSRegister';
+
 function App() {
+
+  // const location = useLocation();
+  // const location = useLocation();
+  // const currentRoute = location.pathname;
+  // const TeacherRoutes = [
+  //   "/Add-Result",
+  //   "/Teacher-View-Student-Data",
+  // ];
+
+  // const TeacherRoutesWithComponent = TeacherRoutes.includes(currentRoute);
+  // const shouldShowAdNavbar = allowAdnavbar.includes(currentRoute);
+
   return (
     <>
-    <BrowserRouter>
+    {/* {TeacherRoutesWithComponent && <TeacherDashboard />} */}
+    {/* {shouldShowAdNavbar && <AdNavbar />} */}
+    <Router>
       <Routes>
         <Route path="/" exact element={<HomePage/>} />
         <Route path="/login" exact element={<Login/>} />
@@ -30,11 +50,15 @@ function App() {
         <Route path="/Admin-ERegister" exact element={<AdminERegister/>} />
         <Route path="/Admin-TRegister" exact element={<AdminTRegister/>} />
         <Route path="/Employee-Register" exact element={<EmployeeRegister/>} />
-        {/* <Route path="/ViewTeacher" element={<ViewTeacher/>} /> */}
-        {/* <Route path="/contact" component={Contact} /> */}
+
+
+        {/* teacher's roters */}
+        <Route path="/Add-Result" exact element={<AddResult/>} />
+        {/* <Route path="/Teacher-View-Student-Data" exact element={<TViewStudentData/>} /> */}
+        <Route path="/Teacher-View-Student-Data" exact element={<TeacherSRegister/>} />
 
       </Routes>
-    </BrowserRouter>
+    </Router>
     </>
   );
 }

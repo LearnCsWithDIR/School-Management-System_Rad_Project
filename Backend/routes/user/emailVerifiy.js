@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-// const bcrypt = require('bcrypt');
-// const crypto = require('crypto');
 let Student = require("../../models/student/signUp.js");
 const Employee = require('../../models/employee/signUp.js');
 const Teacher = require('../../models/teacher/signUp.js');
-// const nodemailer = require('nodemailer');
 
 // Verification route file
 router.get('/verify', async (req, res) => {

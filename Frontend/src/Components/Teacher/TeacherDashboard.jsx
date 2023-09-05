@@ -1,12 +1,24 @@
-import "./Dashboard.css";
+import "../Admin/Dashboard.css";
+import "./TeacherDashboard.css"
 import { useState } from "react";
-import Navbar from "../Utils/Navbar";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
+import TeacherSRegister from "./TeacherSRegister";
+// import TeacherDashboard from "./TeacherDashboard";
+import TViewStudentData from "./TViewStudentData";
+import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 
-function Dashboard() {
+function TeacherDashboard() {
+  // <Routes>
+  //   <Route
+  //     path="/Teacher-Register-Student"
+  //     exact
+  //     Component={<TeacherDashboard />}
+  //   />
+  // </Routes>;
   return (
     <>
       {/* <Navbar /> */}
+
       <div>
         <div className="Slider">
           <div className="navigation">
@@ -15,9 +27,8 @@ function Dashboard() {
                 {/* <span className="icon">
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
-                <span className="title123">Admin</span>
-              
-            </li>
+                <span className="title123">Teacher</span>
+              </li>
               <li>
                 <Link to="/Admin">
                   <span className="icon">
@@ -26,16 +37,9 @@ function Dashboard() {
                   <span className="title1">Dashboard</span>
                 </Link>
               </li>
+
               <li>
-                <Link to="/ViewTeacher">
-                  <span className="icon">
-                    <ion-icon name="people-outline"></ion-icon>
-                  </span>
-                  <span className="title1">Teachers</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/View-Students">
+                <Link to="/Teacher-View-Student-Data">
                   <span className="icon">
                     <ion-icon name="people-outline"></ion-icon>
                   </span>
@@ -43,11 +47,11 @@ function Dashboard() {
                 </Link>
               </li>
               <li>
-                <Link to="/View-Employee">
+                <Link to="/Add-Result">
                   <span className="icon">
-                    <ion-icon name="people-outline"></ion-icon>
+                  <ion-icon name="book-outline"></ion-icon>
                   </span>
-                  <span className="title1">Employees</span>
+                  <span className="title1">Add-Result</span>
                 </Link>
               </li>
               <li>
@@ -58,8 +62,8 @@ function Dashboard() {
                   <span className="title1">Settings</span>
                 </a>
               </li>
-              
-              <li>
+
+              <li id="sign-out">
                 <Link to="/">
                   <span className="icon">
                     <ion-icon name="log-out-outline"></ion-icon>
@@ -76,4 +80,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default TeacherDashboard;
