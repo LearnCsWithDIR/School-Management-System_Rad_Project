@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Utils/ViewData.css";
 import axios from "axios";
+import TeacherDashboard from "./TeacherDashboard";
 
 export default function TViewStudentData() {
   const [studentData, setStudentData] = useState([]);
@@ -34,9 +35,10 @@ export default function TViewStudentData() {
 
   return (
     <>
+    <TeacherDashboard />
       <div id="component">
         <div className="DataContainer">
-          <Link className="border-shadow" to="/Admin-SRegister">
+          <Link className="border-shadow" to="/Teacher-S-Register">
             <span className="navigator">
               <ion-icon name="person"></ion-icon>New Student +
             </span>

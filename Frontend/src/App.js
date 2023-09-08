@@ -17,7 +17,7 @@ import AddResult from './Components/Teacher/AddResult';
 import TeacherDashboard from './Components/Teacher/TeacherDashboard';
 import TViewStudentData from './Components/Teacher/TViewStudentData';
 import TeacherSRegister from './Components/Teacher/TeacherSRegister';
-
+import Teacher from './Components/Teacher/Teacher';
 function App() {
 
   // const location = useLocation();
@@ -53,9 +53,10 @@ function App() {
 
 
         {/* teacher's roters */}
+        <Route path="/Teacher" exact element={<Teacher/>} />
         <Route path="/Add-Result" exact element={<AddResult/>} />
-        {/* <Route path="/Teacher-View-Student-Data" exact element={<TViewStudentData/>} /> */}
-        <Route path="/Teacher-View-Student-Data" exact element={<TeacherSRegister/>} />
+        <Route path="/Teacher-S-Register" exact element={<TeacherSRegister/>} />
+        <Route path="/Teacher-View-Student-Data" exact element={<TViewStudentData/>} />
 
       </Routes>
     </Router>

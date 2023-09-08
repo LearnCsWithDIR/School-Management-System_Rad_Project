@@ -5,30 +5,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const resultsSchema = new Schema({
-  id: {
+  stu_id: {
+    type: String,
+    required: true,
+  },
+  subjectName: {
     type: String,
     required: true,
   },
   resultDetails: {
-    subjectName:{
-        type: String,
-        required: true,
-    },
-    subjectMarks: {
+    subjectMark: {
       type: String,
       required: true,
     },
-    assignmentMarks: {
+    assignmentMark: {
       type: String,
       required: true,
     },
-
   },
-  
-
 });
 
-const Teacher = mongoose.model("Results", resultsSchema);
+const Results = mongoose.model("Result", resultsSchema);
 
 // export the Schema use for routes
 module.exports = Results;

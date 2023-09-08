@@ -4,12 +4,40 @@ import "../Utils/ViewData.css";
 import "./AddResult.css";
 import axios from "axios";
 import TeacherDashboard from "./TeacherDashboard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AddResult() {
   const [students, setStudents] = useState([]);
   const [subjectMark, setSubjectMark] = useState("F");
-  const [assigmentMark, setAssigmentMark] = useState("F");
-  const [submitSuccess, setsubmitSuccess] = useState();
+  const [assignmentMark, setAssigmentMark] = useState("F");
+  const [subjectName, setSubjectName] = useState("F");
+  const [submitSuccess, setsubmitSuccess] = useState("");
+
+  function addResult(userId) {
+    e.preventDefault();
+
+    const newResult = {
+      stu_id: userId,
+      subjectName,
+      subjectMark,
+      assignmentMark,
+    };
+    console.log(newResult);
+
+    axios
+      .post("http://localhost:8070/teacher/f/add-result", newResult)
+      .then((response) => {
+        setResponseData(response.data.message);
+        console.log(response.data.message);
+        // alert(response.data.message);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  var marks = [1, 2, 8];
   useEffect(() => {
     function getStudents() {
       axios
@@ -36,9 +64,28 @@ export default function AddResult() {
   //     });
   // };
 
-  const addResult = (userId) => {
-    console.log("click");
-    console.log(subjectMark + " : " + assigmentMark + " : " + userId);
+  // const addResult = (userId) => {
+  //   console.log("click");
+  //   console.log(subjectMark + " : " + assigmentMark + " : " + userId);
+  //   console.log(assigmentMark);
+  //   alert("asdfg");
+
+  // };
+
+  // push to user id vice data
+  const assigmentAdd = (e, id) => {
+    setAssigmentMark({ userID: id, mark: e.target.value });
+    // console.log(assigmentMark);
+    // pushV(assigmentMark);
+
+    const selectedMark = e.target.value;
+    const updatedAssignmentMarks = assigmentMark.map((mark) => {
+      if (mark.userId === user._id) {
+        return { userId: user._id, assignmentMark: selectedMark };
+      }
+      return mark;
+    });
+    setAssigmentMark(updatedAssignmentMarks);
   };
 
   return (
@@ -73,7 +120,7 @@ export default function AddResult() {
                         <td>
                           <select
                             name="department"
-                            id="department"
+                            id="department_123"
                             required
                             onChange={(e) => setSubjectMark(e.target.value)}
                             value={subjectMark}
@@ -91,10 +138,13 @@ export default function AddResult() {
                         <td>
                           <select
                             name="department"
-                            id="department"
+                            id="department_123"
                             required
-                            onChange={(e) => setAssigmentMark(e.target.value)}
-                            value={assigmentMark}
+                            onChange={(e) => {
+                              assigmentAdd(e, user._id);
+                            }}
+                            // value={ assigmentMark.} {assigmentMark.}
+                            // style="width:200px;"
                           >
                             <option value="A+">A+</option>
                             <option value="A">A</option>
@@ -111,24 +161,35 @@ export default function AddResult() {
                           {user.authentication.verified ? (
                             <span id="add-button">
                               <input
-                              id="add"
+                                id="add"
                                 type="submit"
                                 value="Add"
-                                onClick={() => addResult(user._id)}
+                                onClick={() => {
+                                  addResult(user._id);
+                                }}
                               />
                             </span>
                           ) : /*  submit after */
                           user.authentication.verified ? (
                             <span id="add-button">
-                              <input id="pending" type="submit" value="Pending" disabled />
+                              <input
+                                id="pending"
+                                type="submit"
+                                value="Pending"
+                                disabled
+                              />
                             </span>
                           ) : (
                             /*  submit after success */
                             <span id="add-button">
-                              <input id="success" type="submit" value="Success" disabled />
+                              <input
+                                id="success"
+                                type="submit"
+                                value="Success"
+                                disabled
+                              />
                             </span>
-                          )
-                          }
+                          )}
                         </td>
                         <td>
                           <Link className="icon-" to="">

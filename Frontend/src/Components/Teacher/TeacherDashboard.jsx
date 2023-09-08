@@ -2,22 +2,11 @@ import "../Admin/Dashboard.css";
 import "./TeacherDashboard.css"
 import { useState } from "react";
 import { Link, Router } from "react-router-dom";
-import TeacherSRegister from "./TeacherSRegister";
-// import TeacherDashboard from "./TeacherDashboard";
-import TViewStudentData from "./TViewStudentData";
 import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 
 function TeacherDashboard() {
-  // <Routes>
-  //   <Route
-  //     path="/Teacher-Register-Student"
-  //     exact
-  //     Component={<TeacherDashboard />}
-  //   />
-  // </Routes>;
   return (
     <>
-      {/* <Navbar /> */}
 
       <div>
         <div className="Slider">
@@ -30,7 +19,7 @@ function TeacherDashboard() {
                 <span className="title123">Teacher</span>
               </li>
               <li>
-                <Link to="/Admin">
+                <Link to="/Teacher">
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
