@@ -17,8 +17,6 @@ const URL = process.env.MONGODB_URL;
 
 // database connect for backend server
 mongoose.connect(URL, {
-    // useCreatedIndex:true,
-    // useFindAndModify:true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

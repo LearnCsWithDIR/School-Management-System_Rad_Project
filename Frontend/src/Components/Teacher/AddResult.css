@@ -33,3 +33,14 @@ form tr td #add:hover{
     color:white;
     transition: 0.5s ease;
 }
+
+p{
+    color: aliceblue;
+    font-size: larger;
+    font-weight: 500;
+    margin-bottom: 10px;
+    
+    .teachId{        
+        color:rgb(173, 98, 243);
+    }
+}

@@ -1,13 +1,39 @@
 import "../Admin/Dashboard.css";
-import "./TeacherDashboard.css"
+import "./TeacherDashboard.css";
 import { useState } from "react";
-import { Link, Router } from "react-router-dom";
+import { Link, Router ,useNavigate} from "react-router-dom";
 import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 
-function TeacherDashboard() {
+function TeacherDashboard(props) {
+  const { id } = props;
+  let teacherId;
+
+  // id is get the first login time only then I Stored it in the cookies
+  if (id != undefined) {
+    document.cookie = `teacherId=${id}`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+
+  teacherId = getCookie("teacherId");
+
+  const navigate = useNavigate();
+
+  if (!teacherId) {
+    navigate("/login");
+  }
+
   return (
     <>
-
       <div>
         <div className="Slider">
           <div className="navigation">
@@ -16,10 +42,11 @@ function TeacherDashboard() {
                 {/* <span className="icon">
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
-                <span className="title123">Teacher</span>
+                <span className="title123">Teacher </span>
+                <p className="title1234">{teacherId} </p>
               </li>
               <li>
-                <Link to="/Teacher">
+                <Link to={`/Teacher/${teacherId}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
@@ -36,9 +63,9 @@ function TeacherDashboard() {
                 </Link>
               </li>
               <li>
-                <Link to="/Add-Result">
+                <Link to={`/Add-Result/${teacherId}`}>
                   <span className="icon">
-                  <ion-icon name="book-outline"></ion-icon>
+                    <ion-icon name="book-outline"></ion-icon>
                   </span>
                   <span className="title1">Add-Result</span>
                 </Link>

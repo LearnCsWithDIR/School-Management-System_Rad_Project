@@ -53,8 +53,8 @@ function App() {
 
 
         {/* teacher's roters */}
-        <Route path="/Teacher" exact element={<Teacher/>} />
-        <Route path="/Add-Result" exact element={<AddResult/>} />
+        <Route path="/Teacher/:id" exact element={<Teacher/>} />
+        <Route path="/Add-Result/:id" exact element={<AddResult/>} />
         <Route path="/Teacher-S-Register" exact element={<TeacherSRegister/>} />
         <Route path="/Teacher-View-Student-Data" exact element={<TViewStudentData/>} />
 

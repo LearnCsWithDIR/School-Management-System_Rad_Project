@@ -68,9 +68,9 @@ function StudentRegister() {
         }, 3000);
         
         // navigation
-        const timeoutId1 = setTimeout(() => {
-          navigate("/View-Students");
-        }, 4000);
+        // const timeoutId1 = setTimeout(() => {
+        //   navigate("/View-Students");
+        // }, 4000);
         
         // Clean up the timeout if the component unmounts or before another value change
         return () => {

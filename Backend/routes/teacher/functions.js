@@ -71,6 +71,7 @@ router.route("/get/:id").get(async (req, res) => {
 router.route("/add-result").post(async (req, res) => {
   const { stu_id, subjectName, subjectMark, assignmentMark } = req.body;
 
+  console.log(stu_id, subjectName, subjectMark, assignmentMark);
   try {
     // write the quary for idenfitfy student result
     const query = {
@@ -93,9 +94,9 @@ router.route("/add-result").post(async (req, res) => {
       )
         .then((change) => {
           if (change.modifiedCount) {
-            res.json({ message: "Result Updated successful..." });
+            res.json({ message: "Updated successful..." });
           } else {
-            res.json({ message: "Result is Already Updated..." });
+            res.json({ message: "Already Updated..." });
           }
           console.log(count.modifiedCount);
         })
@@ -115,7 +116,7 @@ router.route("/add-result").post(async (req, res) => {
       newResults
         .save()
         .then(() => {
-          res.json({ message: "New result Added successful..." });
+          res.json({ message: "Result Added successful..." });
         })
         .catch((err) => {
           console.log(err);

@@ -19,11 +19,11 @@ a {
 }
 
 #component {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: auto;
   position: relative;
   top: 50px;
-  left: 120px;
+  left: 70px;
   /* max-height: 700px; */
   /* overflow-y: scroll; */
 }

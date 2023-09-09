@@ -2,12 +2,13 @@ import "./Login.css";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 function Login() {
   const [email, setUserName] = useState("");
   const [userpassword, setPassword] = useState("");
   const [userType, setuserType] = useState("");
+  const [teachSubject, setTeachSubject] = useState("");
 
   // for response success message
   const [message, setMessage] = useState("");
@@ -26,10 +27,10 @@ function Login() {
     axios
       .post("http://localhost:8070/user/signIn", UserLogin)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setuserType(res.data.type);
         setMessage(res.data.message);
-        console.log(userType);
+        // console.log(userType);
 
         if (res.data.message == "Sign-in successful") {
           setUserName("");
@@ -42,15 +43,22 @@ function Login() {
         const timeoutId0 = setTimeout(() => {
           setMessage("");
         }, 2000);
+
         const timeoutId1 = setTimeout(() => {
           if (res.data.type == "Admin" || res.data.type == "Co-Admin") {
             navigate("/Admin");
-          } else if (res.data.type == "Student") {
+          } else if (res.data.type == "student") {
             console.log("navigate");
-            navigate("/Admin");
+            // navigate("/Admin");
           } else if (res.data.type == "Registrar") {
             console.log("navigate");
-            navigate("/Admin");
+            // navigate("/Admin");
+          } else if (res.data.type == "teacher") {
+            console.log("Teacher");
+            setTeachSubject(res.data.subject);
+            console.log(teachSubject);
+            const id = res.data.subject
+            navigate(`/Teacher/${id}`);
           }
         }, 3000);
         // setuserType("");
@@ -64,10 +72,7 @@ function Login() {
         console.log(e);
       });
 
-    console.log(message);
-
-    console.log(userType);
-
+    // console.log(message);
   }
   return (
     <>
