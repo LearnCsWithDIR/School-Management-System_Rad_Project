@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Utils/ViewData.css";
 import axios from "axios";
+import TeacherUpdate from "./TeacherUpdate";
 
 export default function ViewTeacherData() {
   const [teacherData, setTeacherData] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   useEffect(() => {
     function getTeacher() {
       axios
@@ -29,6 +32,10 @@ export default function ViewTeacherData() {
         alert("Are you Sure ?");
         location.reload();
       });
+  };
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
   };
 
   return (
@@ -80,7 +87,11 @@ export default function ViewTeacherData() {
                             )}
                           </td>
                           <td>
-                            <Link className="icon-" to="">
+                            <Link
+                              className="icon-"
+                              to=""
+                              onClick={() => togglePopup()}
+                            >
                               <span className="icons" title="Edit">
                                 <ion-icon name="create-outline"></ion-icon>
                               </span>
@@ -104,6 +115,16 @@ export default function ViewTeacherData() {
               </form>
             ) : (
               <span id="No-Data"> No Data Found</span>
+            )}
+            {isPopupOpen && (
+              <div className="popup">
+                {/* Add the update form and logic here */}
+                {/* // Inside the popup in UserDetails.js */}
+                <TeacherUpdate
+                  isPopupOpen={isPopupOpen}
+                  setIsPopupOpen={setIsPopupOpen}
+                />
+              </div>
             )}
           </div>
         </div>

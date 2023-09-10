@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Utils/ViewData.css";
 import axios from "axios";
-import Update from "./Update";
+import TeacherUpdate from "./TeacherUpdate";
 
 export default function ViewEmployeeData() {
   const [EmployeeData, setEmployeeData] = useState([]);
@@ -116,8 +116,8 @@ export default function ViewEmployeeData() {
             <div className="popup">
               {/* Add the update form and logic here */}
               {/* // Inside the popup in UserDetails.js */}
-              <Update />
-              <button onClick={togglePopup}>Close</button>
+              
+              {/* <TeacherUpdate isPopupOpen={isPopupOpen} setIsPopupOpen = {setIsPopupOpen}/> */}
             </div>
           )}
         </div>
