@@ -5,12 +5,15 @@
     justify-content: flex-end;
     font-size: 35px;
     color: rgb(204, 9, 9);
+    background-color: rgba(255, 255, 255, 0.329);
+    /* opacity: 0.5; */
     margin-left:450px ;
     transition: 0.4s ease-in-out;
     border-radius: 30%;
 }
 .close-btn:hover{
     border-radius: 50%;
+    opacity: 1;
     color: white;
     background-color: rgb(204, 9, 9);
     

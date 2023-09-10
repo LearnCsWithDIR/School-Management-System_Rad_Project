@@ -1,38 +1,48 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Update.css";
 import { Link, useNavigate } from "react-router-dom";
 // import "../Utils/ViewData.css";
 import "./TeacherRegister.css";
 
 export default function TeacherUpdate(props) {
-  const { isPopupOpen, setIsPopupOpen } = props;
+  const { isPopupOpen, setIsPopupOpen , user_obj } = props;
 
+  // stored data conncet to the input tags use state for 
+  // assign initial value from user object include data
   // get data for useState
-  const [teacher_name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [NIC, setNIC] = useState("");
-  const [phone, setphone] = useState("");
-  const [gender, setGender] = useState("male");
-  const [department,setDepartment] = useState("Computer Science");
-  const [subject,setSubject] = useState("Programming language");
+  const [teacher_name, setName] = useState(user_obj.teacherDetails.name);
+  const [email, setEmail] = useState(user_obj.email);
+  const [address, setAddress] = useState(user_obj.teacherDetails.address);
+  const [city, setCity] = useState(user_obj.teacherDetails.city);
+  const [NIC, setNIC] = useState(user_obj.teacherDetails.NIC);
+  const [phone, setphone] = useState(user_obj.teacherDetails.phoneNo);
+  const [gender, setGender] = useState(user_obj.teacherDetails.gender);
+  const [department,setDepartment] = useState(user_obj.teacherDetails.department);
+  const [subject,setSubject] = useState(user_obj.teacherDetails.subject);
   
 
-  const callClose = () => {
-    setIsPopupOpen(false);
-  };
-  
   function UpdateData(e){
     e.preventDefault();
-    
-    console.log(teacher_name,email,address)
+
+    const newTeacher= {
+      teacher_name,
+      email,
+      address,
+      city,
+      NIC,
+      phone,
+      gender,
+      department,
+      subject,
+    };
+    console.log(newTeacher);
+
   }
 
   return (
     <>
       <div className="update-form">
-        <Link onClick={() => callClose()}>
+        <Link onClick={() => setIsPopupOpen(false)}>
           <span className="close-btn">
             <ion-icon name="close-outline"></ion-icon>
           </span>

@@ -7,6 +7,7 @@ import TeacherUpdate from "./TeacherUpdate";
 export default function ViewTeacherData() {
   const [teacherData, setTeacherData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userObj, setUserObj] = useState({});
 
   useEffect(() => {
     function getTeacher() {
@@ -34,7 +35,16 @@ export default function ViewTeacherData() {
       });
   };
 
-  const togglePopup = () => {
+  const togglePopup = (userId) => {
+    // get the update stage for user user object
+    if (!isPopupOpen) {
+      teacherData.map((user, index) => {
+        if (userId == user._id) {
+          // console.log(user);
+          setUserObj(user);
+        }
+      });
+    }
     setIsPopupOpen(!isPopupOpen);
   };
 
@@ -90,7 +100,7 @@ export default function ViewTeacherData() {
                             <Link
                               className="icon-"
                               to=""
-                              onClick={() => togglePopup()}
+                              onClick={() => togglePopup(user._id)}
                             >
                               <span className="icons" title="Edit">
                                 <ion-icon name="create-outline"></ion-icon>
@@ -123,6 +133,7 @@ export default function ViewTeacherData() {
                 <TeacherUpdate
                   isPopupOpen={isPopupOpen}
                   setIsPopupOpen={setIsPopupOpen}
+                  user_obj={userObj}
                 />
               </div>
             )}
