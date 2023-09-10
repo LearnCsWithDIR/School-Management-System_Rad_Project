@@ -3,6 +3,8 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setUserName] = useState("");
@@ -35,6 +37,27 @@ function Login() {
         if (res.data.message == "Sign-in successful") {
           setUserName("");
           setPassword("");
+          toast.success(res.data.message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }else{
+          toast.error(res.data.message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
 
         // <option value="Payment Handler">Payment Handler</option>
@@ -54,13 +77,13 @@ function Login() {
             console.log("navigate");
             // navigate("/Admin");
           } else if (res.data.type == "teacher") {
-            console.log("Teacher");
+            // console.log("Teacher");
             setTeachSubject(res.data.subject);
-            console.log(teachSubject);
+            // console.log(teachSubject);
             const id = res.data.subject
             navigate(`/Teacher/${id}`);
           }
-        }, 3000);
+        }, 2000);
         // setuserType("");
 
         return () => {
@@ -77,6 +100,18 @@ function Login() {
   return (
     <>
       <Navbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div id="container_login">
         <div id="signtitle_login">Welcome Back !</div>
         <div className="signtitle_1">Sign In</div>

@@ -76,6 +76,7 @@ export default function AddResult() {
       });
   };
 
+  // I want to pass the students names only selected courese by devided
   useEffect(() => {
     function getStudents() {
       axios

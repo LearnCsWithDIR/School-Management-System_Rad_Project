@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Utils/ViewData.css";
 import axios from "axios";
+import Update from "./Update";
 
 export default function ViewEmployeeData() {
   const [EmployeeData, setEmployeeData] = useState([]);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   useEffect(() => {
     function getEmployee() {
       axios
@@ -27,6 +31,10 @@ export default function ViewEmployeeData() {
       alert("Are you Sure ?");
       location.reload();
     });
+  };
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
   };
 
   return (
@@ -76,7 +84,13 @@ export default function ViewEmployeeData() {
                         )}
                       </td>
                       <td>
-                        <Link className="icon-" to="">
+                        <Link
+                          className="icon-"
+                          to=""
+                          onClick={() => {
+                            togglePopup();
+                          }}
+                        >
                           <span className="icons" title="Edit">
                             <ion-icon name="create-outline"></ion-icon>
                           </span>
@@ -98,6 +112,14 @@ export default function ViewEmployeeData() {
               </tbody>
             </table>
           </form>
+          {isPopupOpen && (
+            <div className="popup">
+              {/* Add the update form and logic here */}
+              {/* // Inside the popup in UserDetails.js */}
+              <Update />
+              <button onClick={togglePopup}>Close</button>
+            </div>
+          )}
         </div>
       </div>
     </>
