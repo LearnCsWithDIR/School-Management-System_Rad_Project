@@ -14,24 +14,40 @@ router.route("/view").get((req, res) => {
 });
 
 // update the employee details
-router.route("/update/:id").put(async (req, res) => {
-  let userId = req.params.id;
-  const { name, age, gender } = req.body;
+router.route("/update").post(async (req, res) => {
+
+  const { user_id,teacher_name, email, NIC, address, city, department, gender, subject, phone } = req.body;
+
   const updateTeacher = {
-    name,
-    age,
-    gender,
-  };
-  const update = await Teacher.findByIdAndUpdate(userId, updateTeacher)
-    .then(() => {
-      res.status(200).send({ status: "User Updated" });
+    email: email,
+    teacherDetails: {
+      name: teacher_name,
+      gender: gender,
+      NIC: NIC,
+      city: city,
+      address: address,
+      phoneNo: phone,
+      department: department,
+      subject: subject,
+    }
+  }
+
+  Teacher.updateOne(
+    { _id: user_id}, // Use the student's stored data ID to identify the result
+    { $set: updateTeacher } // Use $set to update the specified fields
+  )
+    .then((change) => {
+      if (change.modifiedCount) {
+        res.json({ message: "Updated successful..." });
+      } else {
+        res.json({ message: "Already Updated..." });
+      }
+      console.log(count.modifiedCount);
     })
-    .catch((erro) => {
-      console.log(erro);
-      res
-        .status(500)
-        .send({ staus: "Erro With Updating Try Again", error: erro.message });
+    .catch((err) => {
+      console.error("Error updating document");
     });
+
 });
 
 // employee details deletion
@@ -67,11 +83,11 @@ router.route("/get/:id").get(async (req, res) => {
     });
 });
 
-// student data store or update
+// student result data store or update
 router.route("/add-result").post(async (req, res) => {
   const { stu_id, subjectName, subjectMark, assignmentMark } = req.body;
 
-  console.log(stu_id, subjectName, subjectMark, assignmentMark);
+  // console.log(stu_id, subjectName, subjectMark, assignmentMark);
   try {
     // write the quary for idenfitfy student result
     const query = {
@@ -103,6 +119,7 @@ router.route("/add-result").post(async (req, res) => {
         .catch((err) => {
           console.error("Error updating document");
         });
+
     } else {
       const newResults = new Results({
         stu_id: stu_id,

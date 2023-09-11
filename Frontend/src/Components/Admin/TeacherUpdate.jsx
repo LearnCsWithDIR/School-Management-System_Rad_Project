@@ -1,15 +1,19 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Update.css";
 import { Link, useNavigate } from "react-router-dom";
 // import "../Utils/ViewData.css";
 import "./TeacherRegister.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function TeacherUpdate(props) {
-  const { isPopupOpen, setIsPopupOpen , user_obj } = props;
+  const { isPopupOpen, setIsPopupOpen, user_obj,setClickbtn } = props;
 
-  // stored data conncet to the input tags use state for 
+  // stored data conncet to the input tags use state for
   // assign initial value from user object include data
   // get data for useState
+  const [user_id, setuser_id] = useState(user_obj._id);
   const [teacher_name, setName] = useState(user_obj.teacherDetails.name);
   const [email, setEmail] = useState(user_obj.email);
   const [address, setAddress] = useState(user_obj.teacherDetails.address);
@@ -17,14 +21,15 @@ export default function TeacherUpdate(props) {
   const [NIC, setNIC] = useState(user_obj.teacherDetails.NIC);
   const [phone, setphone] = useState(user_obj.teacherDetails.phoneNo);
   const [gender, setGender] = useState(user_obj.teacherDetails.gender);
-  const [department,setDepartment] = useState(user_obj.teacherDetails.department);
-  const [subject,setSubject] = useState(user_obj.teacherDetails.subject);
-  
-
-  function UpdateData(e){
+  const [department, setDepartment] = useState(
+    user_obj.teacherDetails.department
+  );
+  const [subject, setSubject] = useState(user_obj.teacherDetails.subject);
+  function UpdateData(e) {
     e.preventDefault();
 
-    const newTeacher= {
+    const newTeacher = {
+      user_id,
       teacher_name,
       email,
       address,
@@ -35,12 +40,66 @@ export default function TeacherUpdate(props) {
       department,
       subject,
     };
-    console.log(newTeacher);
+    // console.log(newTeacher);
 
+    axios
+      .post("http://localhost:8070/teacher/f/update", newTeacher)
+      .then((res) => {
+        // console.log(res.data.message);
+        if (res.data.message == "Already Updated...") {
+          toast.warn(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+        // location.reload();
+        // Set a timeout to change the value after 5 seconds
+        const timeoutId = setTimeout(() => {
+          setIsPopupOpen(false);
+          setClickbtn(true);
+        }, 3500);
+        
+        // Clean up the timeout if the component unmounts or before another value change
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="update-form">
         <Link onClick={() => setIsPopupOpen(false)}>
           <span className="close-btn">
@@ -50,7 +109,7 @@ export default function TeacherUpdate(props) {
       </div>
       <div className="containerTeach">
         <div className="Teachertitle">Update User's Data...</div>
-        <form onSubmit={UpdateData} >
+        <form onSubmit={UpdateData}>
           <div className="user-details">
             <div className="input-box">
               <span className="details">Teacher full name</span>

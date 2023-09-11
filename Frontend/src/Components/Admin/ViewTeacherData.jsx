@@ -8,6 +8,7 @@ export default function ViewTeacherData() {
   const [teacherData, setTeacherData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [userObj, setUserObj] = useState({});
+  const [clickbtn, setClickbtn] = useState(false);
 
   useEffect(() => {
     function getTeacher() {
@@ -134,9 +135,11 @@ export default function ViewTeacherData() {
                   isPopupOpen={isPopupOpen}
                   setIsPopupOpen={setIsPopupOpen}
                   user_obj={userObj}
+                  setClickbtn={setClickbtn}
                 />
               </div>
             )}
+            {clickbtn ? location.reload() : ""}
           </div>
         </div>
       </div>
