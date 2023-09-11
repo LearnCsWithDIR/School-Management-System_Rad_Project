@@ -69,7 +69,6 @@ export default function TeacherUpdate(props) {
             theme: "dark",
           });
         }
-        // location.reload();
         // Set a timeout to change the value after 5 seconds
         const timeoutId = setTimeout(() => {
           setIsPopupOpen(false);

@@ -13,7 +13,7 @@ router.route("/view").get((req, res) => {
     });
 });
 
-// update the employee details
+// update the teacher details
 router.route("/update").post(async (req, res) => {
 
   const { user_id,teacher_name, email, NIC, address, city, department, gender, subject, phone } = req.body;
@@ -50,7 +50,7 @@ router.route("/update").post(async (req, res) => {
 
 });
 
-// employee details deletion
+// teacher details deletion
 router.route("/delete/:id").delete(async (req, res) => {
   let userId = req.params.id;
   await Teacher.findByIdAndDelete(userId)
@@ -64,7 +64,7 @@ router.route("/delete/:id").delete(async (req, res) => {
         .send({ status: "Error with delete user", error: err.message });
     });
 });
-// find one employee details fetch
+// find one teacher details fetch
 router.route("/get/:id").get(async (req, res) => {
   let userId = req.params.id;
   const user = await Teacher.findById(userId)

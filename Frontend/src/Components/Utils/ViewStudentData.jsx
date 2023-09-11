@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ViewData.css";
 import axios from "axios";
-
+import StudentUpdate from "../Admin/StudentUpdate";
 export default function ViewStudentData() {
   const [studentData, setStudentData] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userObj, setUserObj] = useState({});
+  const [clickbtn, setClickbtn] = useState(false);
+
   useEffect(() => {
     function getStudent() {
       axios
@@ -30,6 +34,19 @@ export default function ViewStudentData() {
         alert("Are you Sure ?");
         location.reload();
       });
+  };
+
+  const togglePopup = (userId) => {
+    // get the update stage for user user object
+    if (!isPopupOpen) {
+      studentData.map((user, index) => {
+        if (userId == user._id) {
+          // console.log(user);
+          setUserObj(user);
+        }
+      });
+    }
+    setIsPopupOpen(!isPopupOpen);
   };
 
   return (
@@ -80,7 +97,11 @@ export default function ViewStudentData() {
                       </td>
 
                       <td>
-                        <Link className="icon-" to="">
+                        <Link
+                          className="icon-"
+                          to=""
+                          onClick={() => togglePopup(user._id)}
+                        >
                           <span className="icons" title="Edit">
                             <ion-icon name="create-outline"></ion-icon>
                           </span>
@@ -102,6 +123,20 @@ export default function ViewStudentData() {
               </tbody>
             </table>
           </form>
+
+          {isPopupOpen && (
+              <div className="popup-stu">
+                {/* Add the update form and logic here */}
+                {/* // Inside the popup in UserDetails.js */}
+                <StudentUpdate
+                  isPopupOpen={isPopupOpen}
+                  setIsPopupOpen={setIsPopupOpen}
+                  user_obj={userObj}
+                  setClickbtn={setClickbtn}
+                />
+              </div>
+            )}
+            {clickbtn ? location.reload() : ""}
         </div>
       </div>
     </>

@@ -167,17 +167,3 @@ form .button input:hover {
   }
 }
 
-/* update jsx file for */
-.popup {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0px 2px 10px 7px rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
-  background-color: #32383e;
-  transition: 1s ease-in-out;
-
-}

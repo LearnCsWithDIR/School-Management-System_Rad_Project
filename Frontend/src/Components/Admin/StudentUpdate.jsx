@@ -1,101 +1,116 @@
-import "./StudentRegister.css";
-import { useState } from "react";
-// handle the http request and response
-import axios from "axios";
+import React, { useState } from "react";
+import "./Update.css";
 import { Link, useNavigate } from "react-router-dom";
+// import "../Utils/ViewData.css";
+import "../Registrar/StudentRegister.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function StudentRegister() {
+export default function StudentUpdate(props) {
+  const { isPopupOpen, setIsPopupOpen, user_obj, setClickbtn } = props;
+
   // get data for useState
-  const [stu_name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [DOB, setDOB] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [department, setDepartment] = useState("Computer Science");
-  const [gender, setGender] = useState("male");
-  const [parent_name, setParentName] = useState("");
-  const [relationship, setRelationship] = useState("Mother");
-  const [NIC, setNIC] = useState("");
-  const [phone, setphone] = useState("");
+  const [user_id, setUser_id] = useState(user_obj._id);
+  const [stu_name, setName] = useState(user_obj.userDetails.name);
+  const [email, setEmail] = useState(user_obj.email);
+  const [DOB, setDOB] = useState(user_obj.userDetails.DOB);
+  const [address, setAddress] = useState(user_obj.userDetails.address);
+  const [city, setCity] = useState(user_obj.userDetails.city);
+  const [department, setDepartment] = useState(user_obj.userDetails.department);
+  const [gender, setGender] = useState(user_obj.userDetails.gender);
+  const [parent_name, setParentName] = useState(user_obj.parentDetails.name);
+  const [relationship, setRelationship] = useState(
+    user_obj.parentDetails.relationship
+  );
+  const [NIC, setNIC] = useState(user_obj.parentDetails.NIC);
+  const [phone, setphone] = useState(user_obj.parentDetails.phone);
 
-  const [responseData, setResponseData] = useState("");
-
-  const navigate = useNavigate();
-
-  function sentData(e) {
+  function UpdateData(e) {
     e.preventDefault();
 
     const newStudent = {
+      user_id,
       stu_name,
       email,
       DOB,
       address,
       city,
-      department,
+      NIC,
+      phone,
       gender,
       parent_name,
       relationship,
-      NIC,
-      phone,
+      department,
     };
     console.log(newStudent);
 
     axios
-      .post("http://localhost:8070/user/signUp/add", newStudent)
-      .then((response) => {
-        setResponseData(response.data.message);
-        console.log(response.data.message);
-        // alert(response.data.message);
-
-        // successfull store data after clear the user inputs
-        if (response.data.message == "New Student Added successful...") {
-          setName("");
-          setEmail("");
-          setDOB("");
-          setAddress("");
-          setCity("");
-          setDepartment("Computer Science");
-          setGender("male");
-          setParentName("");
-          setRelationship("Mother");
-          setNIC("");
-          setphone("");
+      .post("http://localhost:8070/student/f/update", newStudent)
+      .then((res) => {
+        // console.log(res.data.message);
+        if (res.data.message == "Already Updated...") {
+          toast.warn(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
-        
-        // Set a timeout to change the value after 3 seconds
-        const timeoutId0 = setTimeout(() => {
-          setResponseData("");
-        }, 3000);
-        
-        // navigation
-        // const timeoutId1 = setTimeout(() => {
-        //   navigate("/View-Students");
-        // }, 4000);
-        
+        const timeoutId = setTimeout(() => {
+          setIsPopupOpen(false);
+          setClickbtn(true);
+        }, 3500);
+
         // Clean up the timeout if the component unmounts or before another value change
         return () => {
-          clearTimeout(timeoutId0);
+          clearTimeout(timeoutId);
         };
       })
       .catch((e) => {
         console.log(e);
       });
   }
-
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <div className="update-form">
+        <Link onClick={() => setIsPopupOpen(false)}>
+          <span className="close-btn">
+            <ion-icon name="close-outline"></ion-icon>
+          </span>
+        </Link>
+      </div>
+
       <div className="containerStu">
         <div className="title">Student & Parent Registration</div>
-        <form onSubmit={sentData}>
-          <span
-            className={
-              responseData == "New Student Added successful..."
-                ? "response"
-                : "error"
-            }
-          >
-            {responseData}
-          </span>
+        <form onSubmit={UpdateData}>
           <div className="user-details">
             <div className="input-box">
               <span className="details">Student full name</span>
@@ -125,11 +140,12 @@ function StudentRegister() {
             <div className="input-box">
               <span className="details">Date of Birth</span>
               <input
-                type="date"
+                type="text"
                 placeholder="Enter your Birthday"
                 required
                 onChange={(e) => setDOB(e.target.value)}
                 value={DOB}
+                pattern="\d{4}-\d{2}-\d{2}" 
               />
             </div>
 
@@ -164,9 +180,7 @@ function StudentRegister() {
                 onChange={(e) => setDepartment(e.target.value)}
                 value={department}
               >
-                <option value="Computer Science">
-                  Computer Science
-                </option>
+                <option value="Computer Science">Computer Science</option>
                 <option value="Mathematics">Mathematics</option>
                 <option value="Technology">Technology</option>
                 <option value="Science">Science</option>
@@ -190,7 +204,6 @@ function StudentRegister() {
               checked={gender === "female"}
               onChange={(e) => setGender(e.target.value)}
               value="female"
-
             />
             <span className="gender-title">Gender</span>
             <div className="category">
@@ -226,9 +239,7 @@ function StudentRegister() {
                 onChange={(e) => setRelationship(e.target.value)}
                 value={relationship}
               >
-                <option value="Mother">
-                  Mother
-                </option>
+                <option value="Mother">Mother</option>
                 <option value="Father">Father</option>
                 <option value="Other">Other</option>
               </select>
@@ -258,12 +269,10 @@ function StudentRegister() {
           </div>
 
           <div className="button">
-            <input type="submit" value="Register" />
+            <input type="submit" value="Update" />
           </div>
         </form>
       </div>
     </>
   );
 }
-
-export default StudentRegister;
