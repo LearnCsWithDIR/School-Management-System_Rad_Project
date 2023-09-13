@@ -148,6 +148,7 @@ form input[type="radio"] {
 
 form .button {
   height: 45px;
+  cursor: pointer;
   /* margin: 45px 0; */
 }
 

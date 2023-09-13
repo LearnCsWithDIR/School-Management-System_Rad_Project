@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Update.css";
+import "../Admin/Update.css";
 import { Link, useNavigate } from "react-router-dom";
 // import "../Utils/ViewData.css";
 import "../Registrar/StudentRegister.css";
@@ -7,7 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function StudentUpdate(props) {
+export default function StuUpdate(props) {
   const { isPopupOpen, setIsPopupOpen, user_obj, setClickbtn } = props;
 
   // get data for useState

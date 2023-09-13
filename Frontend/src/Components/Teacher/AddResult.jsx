@@ -11,7 +11,7 @@ export default function AddResult() {
   // const {teachId,setTeachId} = useState("");
   const { id } = useParams();
   // setTeachId(id);
-  console.log(id);
+  // console.log(id);
 
   const [students, setStudents] = useState([]);
   const [subjectMark, setSubjectMark] = useState("F");
@@ -83,7 +83,7 @@ export default function AddResult() {
         .get("http://localhost:8070/student/f/view")
         .then((res) => {
           setStudents(res.data);
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((e) => {
           console.log(e);
@@ -143,86 +143,100 @@ export default function AddResult() {
                 </thead>
                 <tbody>
                   {students.map((user, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{user.userDetails.name}</td>
-                        <td>
-                          <select
-                            name="department"
-                            id="department_123"
-                            required
-                            onChange={(e) => {
-                              const newSubjectMarks = [...ArraySubjectMarks];
-                              newSubjectMarks[index] = e.target.value;
-                              setArraySubjectMarks(newSubjectMarks);
+                    
+                    // console.log(index,user);
+                    // user.userDetails.subject.map((sub) => {
+                      // if (sub === id) {
 
-                              setSubjectMark(e.target.value);
-                            }}
-                            value={ArraySubjectMarks[index]}
-                          >
-                            <option value="A+">A+</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="S">S</option>
-                            <option value="F" selected>
-                              F
-                            </option>
-                          </select>
-                        </td>
-                        <td>
-                          <select
-                            name="department"
-                            id="department_123"
-                            required
-                            onChange={(e) => {
-                              const newAssigmnetMarks = [
-                                ...ArrayAssignmentMarks,
-                              ];
-                              newAssigmnetMarks[index] = e.target.value;
-                              setArrayAssignmentMarks(newAssigmnetMarks);
+                        // console.log(sub == id);
+                        // console.log("map: " + id);
+                        // console.log(index,sub,user.userDetails.name);
+                        return (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{user.userDetails.name}</td>
+                            <td>
+                              <select
+                                name="department"
+                                id="department_123"
+                                required
+                                onChange={(e) => {
+                                  const newSubjectMarks = [
+                                    ...ArraySubjectMarks,
+                                  ];
+                                  newSubjectMarks[index] = e.target.value;
+                                  setArraySubjectMarks(newSubjectMarks);
 
-                              setAssigmentMark(e.target.value);
-                            }}
-                            value={ArrayAssignmentMarks[index]}
-                            // style="width:200px;"
-                          >
-                            <option value="A+">A+</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="S">S</option>
-                            <option value="F" selected>
-                              F
-                            </option>
-                          </select>
-                        </td>
-                        <td>
-                          <span id="add-button">
-                            <Link
-                              onClick={() => {
-                                addResult(user._id);
-                              }}
-                            >
-                              <input id="add" type="submit" value="Add" />
-                            </Link>
-                          </span>
-                        </td>
-                        <td>
-                          {/* // delete data */}
-                          <Link
-                            className="icon-"
-                            id={user._id}
-                            // onClick={() => deleteUser(user._id)}
-                          >
-                            <span className="icons" title="Delete">
-                              <ion-icon name="trash-outline"></ion-icon>
-                            </span>
-                          </Link>
-                        </td>
-                      </tr>
-                    );
+                                  setSubjectMark(e.target.value);
+                                }}
+                                value={ArraySubjectMarks[index]}
+                              >
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="S">S</option>
+                                <option value="F" selected>
+                                  F
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <select
+                                name="department"
+                                id="department_123"
+                                required
+                                onChange={(e) => {
+                                  const newAssigmnetMarks = [
+                                    ...ArrayAssignmentMarks,
+                                  ];
+                                  newAssigmnetMarks[index] = e.target.value;
+                                  setArrayAssignmentMarks(newAssigmnetMarks);
+
+                                  setAssigmentMark(e.target.value);
+                                }}
+                                value={ArrayAssignmentMarks[index]}
+                                // style="width:200px;"
+                              >
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="S">S</option>
+                                <option value="F" selected>
+                                  F
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <span id="add-button">
+                                <Link
+                                  onClick={() => {
+                                    addResult(user._id);
+                                  }}
+                                >
+                                  <input id="add" type="submit" value="Add" />
+                                </Link>
+                              </span>
+                            </td>
+                            <td>
+                              {/* // delete data */}
+                              <Link
+                                className="icon-"
+                                id={user._id}
+                                // onClick={() => deleteUser(user._id)}
+                              >
+                                <span className="icons" title="Delete">
+                                  <ion-icon name="trash-outline"></ion-icon>
+                                </span>
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      // }else{
+                        // return;
+                      // }
+                    // });
                   })}
                 </tbody>
               </table>

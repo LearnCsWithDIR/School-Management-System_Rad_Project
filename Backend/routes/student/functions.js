@@ -12,6 +12,23 @@ router.route("/view").get((req, res) => {
     });
 });
 
+router.route("/view-by-subject").get( async (req,res)=>{
+  try {
+    const studentsWithSubject = await Student.aggregate([
+      {
+        $match: {
+          'userDetails.subject': 'Combined Mathematics',
+        },
+      },
+    ]);
+console.log(studentsWithSubject)
+    res.json(studentsWithSubject);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+
 // update the student details
 router.route("/update").post(async (req, res) => {
   const {
