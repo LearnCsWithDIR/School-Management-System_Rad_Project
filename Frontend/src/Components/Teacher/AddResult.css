@@ -10,11 +10,13 @@ form tr td select{
     color: rgb(255, 255, 255);
     background-color: #171b1f;
     border: none;
-
+    
 }
+
+
 form tr td #add{
     background-color: transparent;
-    border: 1px solid rgb(16, 129, 22);
+    border: 1px solid rgb(3, 78, 7);
     color: rgb(66, 255, 75);
 }
 form tr td #pending{

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Student = require("../../models/student/signUp.js");
+let Attends = require("../../models/student/attendence.js");
 
 // get the all details for the frontend
 router.route("/view").get((req, res) => {
@@ -11,23 +12,6 @@ router.route("/view").get((req, res) => {
       console.log(error);
     });
 });
-
-router.route("/view-by-subject").get( async (req,res)=>{
-  try {
-    const studentsWithSubject = await Student.aggregate([
-      {
-        $match: {
-          'userDetails.subject': 'Combined Mathematics',
-        },
-      },
-    ]);
-console.log(studentsWithSubject)
-    res.json(studentsWithSubject);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-})
 
 // update the student details
 router.route("/update").post(async (req, res) => {
@@ -113,5 +97,26 @@ router.route("/get/:id").get(async (req, res) => {
         .send({ status: "Error with fetch user", error: err.message });
     });
 });
+
+// get student when subject vice
+// router.route("/follow-by-subject").post(async (req, res) => {
+//   const { subject } = req.body;
+
+//   // console.log(subject,"\n\n\n")
+//   try {
+    
+//     const studentsWithSubject = await Student.find([
+//       {
+//         "userDetails.subject": { $elemMatch: { $eq: subject } },
+//       },
+//     ]);
+
+//     console.log(studentsWithSubject);
+//     res.json(studentsWithSubject);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
 
 module.exports = router;

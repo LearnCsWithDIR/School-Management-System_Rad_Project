@@ -1,31 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../Utils/ViewData.css";
-import "./AddResult.css";
+import "../Teacher/AddResult.css";
+import "./AddAttendence.css";
 import axios from "axios";
-import TeacherDashboard from "./TeacherDashboard";
+import RegiDashboard from "./RegiDashboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function AddResult() {
-  // const {teachId,setTeachId} = useState("");
+export default function AddAttendence() {
   const { id } = useParams();
-  // setTeachId(id);
-  // console.log(id);
+
+  // format the date
+  function formatDate(inputDate) {
+    const dateObject = new Date(inputDate);
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    const year = dateObject.getFullYear().toString();
+    return `${year}-${month}-${day}`;
+  }
+
+  const inputDate = new Date();
+  const formattedDate = formatDate(inputDate);
 
   const [students, setStudents] = useState([]);
-  const [subjectMark, setSubjectMark] = useState("F");
-  const [assignmentMark, setAssigmentMark] = useState("F");
-  const [subjectName, setSubjectName] = useState("maths");
 
-  const [ArraySubjectMarks, setArraySubjectMarks] = useState(
-    Array(students.length).fill("F")
-  );
-  const [ArrayAssignmentMarks, setArrayAssignmentMarks] = useState(
-    Array(students.length).fill("F")
+  const [subject, setSubject] = useState("Programming language");
+  const [attend, setAttend] = useState("present");
+  const [attendDate, setAttendDate] = useState(formattedDate);
+
+  const [ArrayAttendence, setArrayAttendence] = useState(
+    Array(students.length).fill("present")
   );
 
-  const addResult = (userId) => {
+  // I want to pass the students names only selected courese by devided
+  useEffect(() => {
+    function getStudents() {
+      axios
+        .get("http://localhost:8070/student/f/view")
+        .then((res) => {
+          setStudents(res.data);
+          // console.log(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+
+    getStudents();
+  }, []);
+
+  const findStudent = () => {
+    const followSubject = {
+      subject: subject,
+    };
+    console.log(followSubject);
+
+    // axios
+    //   .post("http://localhost:8070/student/f/follow-by-subject", followSubject)
+    //   .then((response) => {
+    //     //   setResponseData(response.data.message);
+    //     // alert(response.data.message);
+    //     if (response.data.message == "Already Updated...") {
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+  };
+
+  const Attendence = (userId) => {
     // e.preventDefault();
 
     const newResult = {
@@ -34,13 +78,6 @@ export default function AddResult() {
       subjectMark,
       assignmentMark,
     };
-
-    // for (let index = 0; index < array.length; index++) {
-    //   const element = array[index];
-
-    // }
-    console.log(ArraySubjectMarks);
-    console.log(ArrayAssignmentMarks);
 
     axios
       .post("http://localhost:8070/teacher/f/add-result", newResult)
@@ -105,7 +142,7 @@ export default function AddResult() {
 
   return (
     <>
-      <TeacherDashboard />
+      <RegiDashboard />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -120,37 +157,61 @@ export default function AddResult() {
       />
       <div id="component">
         <div className="DataContainer">
-          {/* <Link className="border-shadow" to="/Admin-TRegister">
-            <span className="navigator">
-              <ion-icon name="person"></ion-icon>New Teacher +
-            </span>
-          </Link> */}
-          <p>
-            Exam Subject : <span className="teachId"> {id} </span>
-          </p>
+          <p>Select Subject</p>
+
+          <form action="" onSubmit={findStudent}>
+            <select
+              name="subject"
+              id="subject_0"
+              required
+              onChange={(e) => setSubject(e.target.value)}
+              value={subject}
+            >
+              <option value="Programming language">Programming language</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Combined Mathematics">Combined Mathematics</option>
+              <option value="Pure Mathematics">Pure Mathematics</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Bio-Technology">Bio-Technology</option>
+              <option value="Engineering-Technology">
+                Engineering-Technology
+              </option>
+              <option value="Physics">Physics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Astronomy">Astronomy</option>
+            </select>
+          </form>
+
           <div>
             <form action="">
+              <label id="date-l" htmlFor="">
+                Attendence Date :
+              </label>
+              <input
+                id="date-i"
+                type="date"
+                placeholder="date"
+                value={attendDate}
+                onChange={(e) => setAttendDate(e.target.value)}
+              />
               <table className="table">
                 <thead className="thead-dark">
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Subject Marks</th>
-                    <th>Assigment Marks</th>
+                    <th>Attendence</th>
                     <th>Submit</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {students.map((user, index) => {
-                    
                     // console.log(index,user);
                     return user.userDetails.subject.map((sub) => {
-                      if (sub === id) {
-
+                      if (sub === subject) {
                         // console.log(sub == id);
                         // console.log("map: " + id);
-                        // console.log(index,sub,user.userDetails.name);
+                        console.log(index, sub, user.userDetails.name);
                         return (
                           <tr key={index}>
                             <td>{index + 1}</td>
@@ -161,61 +222,36 @@ export default function AddResult() {
                                 id="department_123"
                                 required
                                 onChange={(e) => {
-                                  const newSubjectMarks = [
-                                    ...ArraySubjectMarks,
+                                  const newAttend = [
+                                    ...ArrayAttendence,
                                   ];
-                                  newSubjectMarks[index] = e.target.value;
-                                  setArraySubjectMarks(newSubjectMarks);
+                                  newAttend[index] = e.target.value;
+                                  setArrayAttendence(newAttend);
 
-                                  setSubjectMark(e.target.value);
+                                  setAttend(e.target.value);
                                 }}
-                                value={ArraySubjectMarks[index]}
-                              >
-                                <option value="A+">A+</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="S">S</option>
-                                <option value="F" selected>
-                                  F
-                                </option>
-                              </select>
-                            </td>
-                            <td>
-                              <select
-                                name="department"
-                                id="department_123"
-                                required
-                                onChange={(e) => {
-                                  const newAssigmnetMarks = [
-                                    ...ArrayAssignmentMarks,
-                                  ];
-                                  newAssigmnetMarks[index] = e.target.value;
-                                  setArrayAssignmentMarks(newAssigmnetMarks);
-
-                                  setAssigmentMark(e.target.value);
-                                }}
-                                value={ArrayAssignmentMarks[index]}
+                                value={ArrayAttendence[index]}
                                 // style="width:200px;"
                               >
-                                <option value="A+">A+</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="S">S</option>
-                                <option value="F" selected>
-                                  F
+                                <option value="present">present</option>
+                                <option value="absent" selected>
+                                  absent
                                 </option>
+                                <option value="late">late</option>
                               </select>
                             </td>
                             <td>
                               <span id="add-button">
                                 <Link
                                   onClick={() => {
-                                    addResult(user._id);
+                                    Attendence(user._id);
                                   }}
                                 >
-                                  <input id="add" type="submit" value="Add" />
+                                  <input
+                                    id="add"
+                                    type="submit"
+                                    value="Save"
+                                  />
                                 </Link>
                               </span>
                             </td>
@@ -233,7 +269,7 @@ export default function AddResult() {
                             </td>
                           </tr>
                         );
-                      }else{
+                      } else {
                         return;
                       }
                     });
