@@ -1,6 +1,6 @@
 import "./Login.css";
 import { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../Utils/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -97,7 +97,6 @@ export default function PasswordReset() {
         pauseOnHover
         theme="dark"
       />
-      
       <div id="container_login">
         <div id="signtitle_login">Security Update !</div>
         <div className="signtitle_1">Change Your Password</div>
