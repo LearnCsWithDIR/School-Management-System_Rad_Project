@@ -2,6 +2,7 @@ const router = require("express").Router();
 let Student = require("../../models/student/signUp.js");
 let Attends = require("../../models/student/attendence.js");
 let Results = require("../../models/teacher/results.js");
+const Student = require("../../models/student/signUp.js");
 
 // get the all details for the frontend
 router.route("/view").get((req, res) => {
@@ -211,6 +212,53 @@ router.route("/view-results").get((req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+// update the student Password
+router.route("/update-password").post(async (req, res) => {
+  const { user_id, currentPassword, NewPassword } = req.body;
+
+  const student = await Student.findOne({ _id: user_id });
+
+  if (student) {
+    const stu_passwordMatch = await bcrypt.compare(
+      currentPassword,
+      student.authentication.stu_password
+    );
+    if (stu_passwordMatch) {
+
+      const stu_hashedPassword = await bcrypt.hash(NewPassword, 12);
+
+
+      const updatePassword = {
+        authentication: {
+          stu_password: stu_hashedPassword,
+        },
+      };
+
+      Student.updateOne(
+        { _id: user_id }, 
+        { $set: updatePassword } 
+      )
+        .then((change) => {
+          if (change.modifiedCount) {
+            res.json({ message: "Password Reset successful..." });
+          }
+          // console.log(count.modifiedCount);
+        })
+        .catch((err) => {
+          console.error("Error updating document");
+        });
+
+      return;
+    } else {
+      res.json({ message: "Password is not match..." });
+      return;
+    }
+  } else {
+    res.json({ message: "User is not found..." });
+    return;
+  }
 });
 
 
