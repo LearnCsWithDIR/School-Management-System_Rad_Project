@@ -7,7 +7,7 @@ import Login from './Components/Utils/Login';
 import HomePage from './Components/Utils/HomePage';
 import Admin from './Components/Admin/Admin';
 import ViewTeacher from './Components/Admin/ViewTeachers';
-import ViewStudent from './Components/Admin/ViewStudent';
+import ViewStudent from './Components/Admin/ViewStudent'; 
 import AdminSRegister from './Components/Admin/AdminSRegister';
 import AdminERegister from './Components/Admin/AdminERegister';
 import ViewEmployee from './Components/Admin/ViewEmployee';

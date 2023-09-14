@@ -1,6 +1,7 @@
 const router = require("express").Router();
 let Teacher = require("../../models/teacher/signUp.js");
 let Results = require("../../models/teacher/results.js");
+var bcrypt = require("bcryptjs");
 
 // get the all details for the frontend
 router.route("/view").get((req, res) => {
@@ -15,8 +16,18 @@ router.route("/view").get((req, res) => {
 
 // update the teacher details
 router.route("/update").post(async (req, res) => {
-
-  const { user_id,teacher_name, email, NIC, address, city, department, gender, subject, phone } = req.body;
+  const {
+    user_id,
+    teacher_name,
+    email,
+    NIC,
+    address,
+    city,
+    department,
+    gender,
+    subject,
+    phone,
+  } = req.body;
 
   const updateTeacher = {
     email: email,
@@ -29,11 +40,11 @@ router.route("/update").post(async (req, res) => {
       phoneNo: phone,
       department: department,
       subject: subject,
-    }
-  }
+    },
+  };
 
   Teacher.updateOne(
-    { _id: user_id}, // Use the student's stored data ID to identify the result
+    { _id: user_id }, // Use the student's stored data ID to identify the result
     { $set: updateTeacher } // Use $set to update the specified fields
   )
     .then((change) => {
@@ -47,7 +58,6 @@ router.route("/update").post(async (req, res) => {
     .catch((err) => {
       console.error("Error updating document");
     });
-
 });
 
 // teacher details deletion
@@ -119,7 +129,6 @@ router.route("/add-result").post(async (req, res) => {
         .catch((err) => {
           console.error("Error updating document");
         });
-
     } else {
       const newResults = new Results({
         stu_id: stu_id,
@@ -143,5 +152,10 @@ router.route("/add-result").post(async (req, res) => {
     console.log(error);
   }
 });
+
+
+
+// $2a$12$SEcDagApSc1MQ9BfdbZnbuEmYW0akuyhAC.G92hzEabKyvR6A4E3G
+// $2a$12$1TUCQJWdgCeIO0mU41JnC.waKzjqKcKmDYEKGVeEY2aZnQ0eCTb6W
 
 module.exports = router;

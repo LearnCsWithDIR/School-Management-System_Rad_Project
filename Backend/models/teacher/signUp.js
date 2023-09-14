@@ -44,7 +44,6 @@ const teacherSchema = new Schema({
     }
 
   },
-  
   authentication: {
     teacher_password: {
       type: String,

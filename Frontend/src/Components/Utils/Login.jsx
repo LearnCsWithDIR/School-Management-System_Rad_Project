@@ -60,8 +60,6 @@ function Login() {
           });
         }
 
-        // <option value="Payment Handler">Payment Handler</option>
-
         // Set a timeout to change the value after 3 seconds
         const timeoutId0 = setTimeout(() => {
           setMessage("");

@@ -200,8 +200,6 @@ router.route("/delete-attend/").delete(async (req, res) => {
 });
 
 
-
-
 // get the all details for the frontend
 router.route("/view-results").get((req, res) => {
   Results.find()

@@ -67,7 +67,7 @@ router.route("/add").post(async (req, res) => {
       } else if (department == "Science") {
         subjectArray = ["Astronomy", "Chemistry", "Physics"];
       }
-      console.log(subjectArray);
+      // console.log(subjectArray);
 
       const newStudent = new Student({
         email: email,
