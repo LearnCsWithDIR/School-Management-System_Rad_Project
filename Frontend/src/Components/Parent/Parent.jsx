@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import StuDashboard from "./StuDashboard";
+import ParentDashboard from "./ParentDashboard";
 import "../Teacher/Teacher.css";
 // import Widgets from "./Widget";
-import StuAttendence from "./StuAttendence";
-import StuResult from "./StuResult";
+import StuAttendence from "../Student/StuAttendence";
+import StuResult from "../Student/StuResult";
 import { useParams } from "react-router-dom";
 
-export default function Student() {
+export default function Parent() {
   const { id } = useParams();
   return (
     <>
-      <StuDashboard id={id}/>
+      <ParentDashboard id={id}/>
       <div className="homeContainer">
         <div className="listContainer">
           {/* <Submissions /> */}
