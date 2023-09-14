@@ -1,10 +1,9 @@
 import "../Admin/Dashboard.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function StuDashboard(props) {
-
   const { id } = props;
   // console.log(id);
   let studentId;
@@ -44,8 +43,7 @@ export default function StuDashboard(props) {
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
                 <span className="title123">Student</span>
-              
-            </li>
+              </li>
               <li>
                 <Link to={`/Student/${id}`}>
                   <span className="icon">
@@ -63,14 +61,14 @@ export default function StuDashboard(props) {
                 </Link>
               </li> */}
               <li>
-                <a href="">
+                <Link to="/password-reset">
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
                   <span className="title1">Reset Password</span>
-                </a>
+                </Link>
               </li>
-              
+
               <li>
                 <Link to="/">
                   <span className="icon">
@@ -86,5 +84,3 @@ export default function StuDashboard(props) {
     </>
   );
 }
-
-

@@ -26,6 +26,9 @@ import AddAttendence from './Components/Registrar/AddAttendence';
 import ParentDashboard from './Components/Parent/ParentDashboard';
 import Parent from './Components/Parent/Parent';
 
+
+import PasswordReset from './Components/Utils/PasswordReset';
+
 function App() {
 
   // const location = useLocation();
@@ -72,6 +75,8 @@ function App() {
         <Route path="/Student/:id" exact element={<Student/>} />
 
         <Route path="/Parent/:id" exact element={<Parent/>} />
+
+        <Route path="/password-reset" exact element={<PasswordReset/>} />
 
       </Routes>
     </Router>

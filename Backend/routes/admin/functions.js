@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Employee = require("../../models/employee/signUp.js");
+var bcrypt = require("bcryptjs");
 
 
 // get the all details for the frontend

@@ -1,8 +1,14 @@
+var bcrypt = require("bcryptjs");
+let Student = require("../../models/student/signUp.js");
+const router = require("express").Router();
+
+
+
 // update the parent Password
 router.route("/update-password").post(async (req, res) => {
     const { user_id, currentPassword, NewPassword } = req.body;
   
-    const parent = await Parent.findOne({ _id: user_id });
+    const parent = await Student.findOne({ _id: user_id });
   
     if (parent) {
       const parent_passwordMatch = await bcrypt.compare(
@@ -20,7 +26,7 @@ router.route("/update-password").post(async (req, res) => {
           },
         };
   
-        Parent.updateOne(
+        Student.updateOne(
           { _id: user_id }, 
           { $set: updatePassword } 
         )

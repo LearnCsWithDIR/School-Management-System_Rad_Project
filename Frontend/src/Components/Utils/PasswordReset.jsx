@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function PasswordReset() {
-  const [currentpassword, setCurrentPassword] = useState("");
-  const [newpassword, setNewPassword] = useState("");
+export default function PasswordReset() {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [user_id, setUser_id] = useState("");
+  const [NewPassword, setNewPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
-  const [userType, setuserType] = useState("");
-  const [teachSubject, setTeachSubject] = useState("");
 
   // for response success message
   const [message, setMessage] = useState("");
@@ -19,89 +18,69 @@ function PasswordReset() {
 
   const navigate = useNavigate();
 
-  function setData(e) {
+  function ResetData(e) {
     e.preventDefault();
 
-    const UserLogin = {
-      email,
-      userpassword,
+    const resetPassword = {
+      user_id,
+      currentPassword,
+      NewPassword,
     };
+    console.log(resetPassword);
+    if (NewPassword === confirmpassword) {
+      // pass data from the backend
+      axios
+        .post("http://localhost:8070/student/f/update-password", resetPassword)
+        .then((res) => {
+          // console.log(res.data);
+          // setuserType(res.data.type);
+          setMessage(res.data.message);
+          // console.log(userType);
 
-    axios
-      .post("http://localhost:8070/user/signIn", UserLogin)
-      .then((res) => {
-        // console.log(res.data);
-        setuserType(res.data.type);
-        setMessage(res.data.message);
-        // console.log(userType);
+          if (res.data.message == "Password Reset successful...") {
+            setCurrentPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
 
-        if (res.data.message == "Sign-in successful") {
-          setUserName("");
-          setPassword("");
-          toast.success(res.data.message, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        } else {
-          toast.error(res.data.message, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-
-        // <option value="Payment Handler">Payment Handler</option>
-
-        // Set a timeout to change the value after 3 seconds
-        const timeoutId0 = setTimeout(() => {
-          setMessage("");
-        }, 2000);
-
-        const timeoutId1 = setTimeout(() => {
-          if (res.data.type == "Admin" || res.data.type == "Co-Admin") {
-            navigate("/Admin");
-          } else if (res.data.type == "student") {
-            const id = res.data.stu_id;
-
-            navigate(`/Student/${id}`);
-            // navigate("/Admin");
-          } else if (res.data.type == "parent") {
-            console.log("parent");
-            // navigate("/Admin");
-          } else if (res.data.type == "Registrar") {
-            console.log("Registrar");
-            navigate("/Student-Attendence");
-          } else if (res.data.type == "teacher") {
-            // console.log("Teacher");
-            setTeachSubject(res.data.subject);
-            // console.log(teachSubject);
-            const id = res.data.subject;
-            navigate(`/Teacher/${id}`);
+            toast.success(res.data.message, {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else {
+            toast.success(res.data.message, {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
           }
-        }, 2000);
-        // setuserType("");
-
-        return () => {
-          clearTimeout(timeoutId0);
-          clearTimeout(timeoutId1);
-        };
-      })
-      .catch((e) => {
-        console.log(e);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      toast.error("Password mismatch. Try Again.", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
-
-    // console.log(message);
+      console.log("confirm");
+    }
   }
   return (
     <>
@@ -120,23 +99,16 @@ function PasswordReset() {
       />
       <div id="container_login">
         <div id="signtitle_login">Security Update !</div>
-        <div className="signtitle_1">Password Reset</div>
-        <div className="signtitle_1">change your password</div>
-        <form onSubmit={setData}> 
-          <span
-            className={message == "Sign-in successful" ? "response" : "error"}
-          >
-            {/* fix the error resposne for user state */}
-            {message}
-          </span>
-          <div id= "user-details_login">
+        <div className="signtitle_1">Change Your Password</div>
+        <form onSubmit={ResetData}>
+          <div id="user-details_login">
             <div className="input-box_login">
               <span className="details_login">Current Password</span>
               <input
                 type={showpassword ? "text" : "password"}
                 placeholder="Enter New Passsword"
                 required
-                value={userpassword}
+                value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
               />
             </div>
@@ -147,7 +119,7 @@ function PasswordReset() {
                 type={showpassword ? "text" : "password"}
                 placeholder="Enter New Passsword"
                 required
-                value={userpassword}
+                value={NewPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
             </div>
@@ -158,11 +130,10 @@ function PasswordReset() {
                 type={showpassword ? "text" : "password"}
                 placeholder="Enter New Passsword Again"
                 required
-                value={userpassword}
+                value={confirmpassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-
           </div>
           <div className="input-box_login">
             <input
@@ -183,11 +154,8 @@ function PasswordReset() {
           <div id="button_login">
             <input type="submit" value="Reset" />
           </div>
-
-        </form> 
+        </form>
       </div>
     </>
   );
 }
-
-export default Login;

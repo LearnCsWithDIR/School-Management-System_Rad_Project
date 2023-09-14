@@ -153,13 +153,6 @@ router.route("/add-result").post(async (req, res) => {
   }
 });
 
-
-
-// $2a$12$SEcDagApSc1MQ9BfdbZnbuEmYW0akuyhAC.G92hzEabKyvR6A4E3G
-// $2a$12$1TUCQJWdgCeIO0mU41JnC.waKzjqKcKmDYEKGVeEY2aZnQ0eCTb6W
-
-module.exports = router;
-
 // update the teacher Password
 router.route("/update-password").post(async (req, res) => {
   const { user_id, currentPassword, NewPassword } = req.body;
@@ -206,3 +199,6 @@ router.route("/update-password").post(async (req, res) => {
     return;
   }
 });
+
+
+module.exports = router;

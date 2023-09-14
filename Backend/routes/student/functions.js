@@ -2,7 +2,7 @@ const router = require("express").Router();
 let Student = require("../../models/student/signUp.js");
 let Attends = require("../../models/student/attendence.js");
 let Results = require("../../models/teacher/results.js");
-const Student = require("../../models/student/signUp.js");
+var bcrypt = require("bcryptjs");
 
 // get the all details for the frontend
 router.route("/view").get((req, res) => {
