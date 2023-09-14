@@ -66,6 +66,7 @@ function App() {
 
         {/* <Route path="/student" exact element={<Student/>} /> */}
         <Route path="/Student-Attendence" exact element={<AddAttendence/>} />
+        <Route path="/Student/:id" exact element={<Student/>} />
 
       </Routes>
     </Router>

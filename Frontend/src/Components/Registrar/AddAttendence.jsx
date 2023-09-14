@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../Utils/ViewData.css";
 import "../Teacher/AddResult.css";
@@ -26,11 +26,11 @@ export default function AddAttendence() {
   const [students, setStudents] = useState([]);
 
   const [subject, setSubject] = useState("Programming language");
-  const [attend, setAttend] = useState("present");
+  const [attend, setAttend] = useState("absent");
   const [attendDate, setAttendDate] = useState(formattedDate);
 
   const [ArrayAttendence, setArrayAttendence] = useState(
-    Array(students.length).fill("present")
+    Array(students.length).fill("absent")
   );
 
   // I want to pass the students names only selected courese by devided
@@ -50,37 +50,19 @@ export default function AddAttendence() {
     getStudents();
   }, []);
 
-  const findStudent = () => {
-    const followSubject = {
-      subject: subject,
-    };
-    console.log(followSubject);
-
-    // axios
-    //   .post("http://localhost:8070/student/f/follow-by-subject", followSubject)
-    //   .then((response) => {
-    //     //   setResponseData(response.data.message);
-    //     // alert(response.data.message);
-    //     if (response.data.message == "Already Updated...") {
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-  };
-
   const Attendence = (userId) => {
     // e.preventDefault();
 
-    const newResult = {
+    const newAttendence = {
       stu_id: userId,
-      subjectName: id,
-      subjectMark,
-      assignmentMark,
+      subjectName: subject,
+      AttendType: attend,
+      Attendence: attendDate,
     };
+    console.log(newAttendence);
 
     axios
-      .post("http://localhost:8070/teacher/f/add-result", newResult)
+      .post("http://localhost:8070/student/f/add-attendence", newAttendence)
       .then((response) => {
         // setResponseData(response.data.message);
         // alert(response.data.message);
@@ -130,15 +112,48 @@ export default function AddAttendence() {
     getStudents();
   }, []);
 
-  // const deleteUser = (userId) => {
-  //   axios
-  //     .delete("http://localhost:8070/teacher/f/delete/" + userId)
-  //     .then((res) => {
-  //       console.log(res.data.status);
-  //       alert("Are you Sure ?");
-  //       location.reload();
-  //     });
-  // };
+  const deleteAttend = (userId) => {
+    const attendDelete = {
+      stu_id: userId,
+      subjectName: subject,
+    };
+
+    axios
+      .delete("http://localhost:8070/student/f/delete-attend/", {
+        data: {
+            stu_id: userId,
+            subjectName: subject, // Add additional data if needed
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.status);
+        if (res.data.message == "Attendece Deleted") {
+          toast.error(res.data.message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          toast.warn(res.data.message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+        alert("Are you Sure ?");
+        // location.reload();
+      });
+  };
 
   return (
     <>
@@ -158,29 +173,26 @@ export default function AddAttendence() {
       <div id="component">
         <div className="DataContainer">
           <p>Select Subject</p>
-
-          <form action="" onSubmit={findStudent}>
-            <select
-              name="subject"
-              id="subject_0"
-              required
-              onChange={(e) => setSubject(e.target.value)}
-              value={subject}
-            >
-              <option value="Programming language">Programming language</option>
-              <option value="Software Engineering">Software Engineering</option>
-              <option value="Combined Mathematics">Combined Mathematics</option>
-              <option value="Pure Mathematics">Pure Mathematics</option>
-              <option value="Architecture">Architecture</option>
-              <option value="Bio-Technology">Bio-Technology</option>
-              <option value="Engineering-Technology">
-                Engineering-Technology
-              </option>
-              <option value="Physics">Physics</option>
-              <option value="Chemistry">Chemistry</option>
-              <option value="Astronomy">Astronomy</option>
-            </select>
-          </form>
+          <select
+            name="subject"
+            id="subject_0"
+            required
+            onChange={(e) => setSubject(e.target.value)}
+            value={subject}
+          >
+            <option value="Programming language">Programming language</option>
+            <option value="Software Engineering">Software Engineering</option>
+            <option value="Combined Mathematics">Combined Mathematics</option>
+            <option value="Pure Mathematics">Pure Mathematics</option>
+            <option value="Architecture">Architecture</option>
+            <option value="Bio-Technology">Bio-Technology</option>
+            <option value="Engineering-Technology">
+              Engineering-Technology
+            </option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Astronomy">Astronomy</option>
+          </select>
 
           <div>
             <form action="">
@@ -206,12 +218,9 @@ export default function AddAttendence() {
                 </thead>
                 <tbody>
                   {students.map((user, index) => {
-                    // console.log(index,user);
                     return user.userDetails.subject.map((sub) => {
                       if (sub === subject) {
-                        // console.log(sub == id);
-                        // console.log("map: " + id);
-                        console.log(index, sub, user.userDetails.name);
+                        // console.log(index, sub, user.userDetails.name);
                         return (
                           <tr key={index}>
                             <td>{index + 1}</td>
@@ -222,16 +231,13 @@ export default function AddAttendence() {
                                 id="department_123"
                                 required
                                 onChange={(e) => {
-                                  const newAttend = [
-                                    ...ArrayAttendence,
-                                  ];
+                                  const newAttend = [...ArrayAttendence];
                                   newAttend[index] = e.target.value;
                                   setArrayAttendence(newAttend);
 
                                   setAttend(e.target.value);
                                 }}
                                 value={ArrayAttendence[index]}
-                                // style="width:200px;"
                               >
                                 <option value="present">present</option>
                                 <option value="absent" selected>
@@ -247,11 +253,7 @@ export default function AddAttendence() {
                                     Attendence(user._id);
                                   }}
                                 >
-                                  <input
-                                    id="add"
-                                    type="submit"
-                                    value="Save"
-                                  />
+                                  <input id="add" type="submit" value="Save" />
                                 </Link>
                               </span>
                             </td>
@@ -260,7 +262,7 @@ export default function AddAttendence() {
                               <Link
                                 className="icon-"
                                 id={user._id}
-                                // onClick={() => deleteUser(user._id)}
+                                onClick={() => deleteAttend(user._id)}
                               >
                                 <span className="icons" title="Delete">
                                   <ion-icon name="trash-outline"></ion-icon>

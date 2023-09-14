@@ -1,6 +1,7 @@
 const router = require("express").Router();
 let Student = require("../../models/student/signUp.js");
 let Attends = require("../../models/student/attendence.js");
+let Results = require("../../models/teacher/results.js");
 
 // get the all details for the frontend
 router.route("/view").get((req, res) => {
@@ -79,6 +80,7 @@ router.route("/delete/:id").delete(async (req, res) => {
         .send({ status: "Error with delete user", error: err.message });
     });
 });
+
 // find one user details fetch
 router.route("/get/:id").get(async (req, res) => {
   let userId = req.params.id;
@@ -98,13 +100,128 @@ router.route("/get/:id").get(async (req, res) => {
     });
 });
 
+// student attendence data store or update
+router.route("/add-attendence").post(async (req, res) => {
+  const { stu_id, subjectName, AttendType, Attendence } = req.body;
+
+  // console.log(stu_id, subjectName, subjectMark, assignmentMark);
+  try {
+    // write the quary for idenfitfy student result
+    const query = {
+      $and: [{ stu_id: stu_id }, { subjectName: subjectName }],
+    };
+    const attend = await Attends.findOne(query);
+
+    if (attend) {
+      const updatedDetails = {
+        AttendType: AttendType,
+        Attendence: Attendence,
+      };
+
+      // Update the marks
+      Attends.updateOne(
+        { _id: attend._id }, // Use the student's stored data ID to identify the result
+        { $set: updatedDetails } // Use $set to update the specified fields
+      )
+        .then((change) => {
+          if (change.modifiedCount) {
+            res.json({ message: "Updated successful..." });
+          } else {
+            res.json({ message: "Already Updated..." });
+          }
+          console.log(count.modifiedCount);
+        })
+        .catch((err) => {
+          console.error("Error updating document");
+        });
+    } else {
+      const newAttend = new Attends({
+        stu_id: stu_id,
+        subjectName: subjectName,
+        AttendType: AttendType,
+        Attendence: Attendence,
+      });
+
+      newAttend
+        .save()
+        .then(() => {
+          res.json({ message: "Attendence Added successful..." });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// view attendence 
+// get the all details for the frontend
+router.route("/view-attendence").get((req, res) => {
+  Attends.find()
+    .then((attendence) => {
+      res.json(attendence);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+
+router.route("/delete-attend/").delete(async (req, res) => {
+  const { stu_id, subjectName } = req.body;
+
+  // let stu_id = req.params.id;
+  try {
+    const query = {
+      $and: [{ stu_id: stu_id }, { subjectName: subjectName }],
+    };
+    const deleteAttend = await Attends.findOne( query );
+
+    if (deleteAttend) {
+      await Attends.findByIdAndDelete(deleteAttend._id)
+        .then(() => {
+          res.status(200).send({ message: "Attendece Deleted" });
+        })
+        .catch((err) => {
+          // console.log(err);
+          res
+            .status(500)
+            .send({ message: "Error with delete user", error: err.message });
+        });
+    } else {
+      res.status(200).send({ message: "Already Deleted" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
+// get the all details for the frontend
+router.route("/view-results").get((req, res) => {
+  Results.find()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+
+
 // get student when subject vice
 // router.route("/follow-by-subject").post(async (req, res) => {
 //   const { subject } = req.body;
 
 //   // console.log(subject,"\n\n\n")
 //   try {
-    
+
 //     const studentsWithSubject = await Student.find([
 //       {
 //         "userDetails.subject": { $elemMatch: { $eq: subject } },

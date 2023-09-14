@@ -9,6 +9,10 @@ const attendenceSchema = new Schema({
     type: String,
     required: true,
   },
+  subjectName: {
+    type: String,
+    required: true,
+  },
   AttendType: {
     type: String,
     required: true,

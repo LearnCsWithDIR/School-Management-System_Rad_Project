@@ -1,9 +1,38 @@
 import "../Admin/Dashboard.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
-export default function StuDashboard() {
+export default function StuDashboard(props) {
+
+  const { id } = props;
+  // console.log(id);
+  let studentId;
+
+  // id is get the first login time only then I Stored it in the cookies
+  if (id != undefined) {
+    document.cookie = `studentId=${id}`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+
+  studentId = getCookie("studentId");
+
+  const navigate = useNavigate();
+
+  if (!studentId) {
+    navigate("/login");
+  }
+
   return (
     <>
       <div>
@@ -18,35 +47,27 @@ export default function StuDashboard() {
               
             </li>
               <li>
-                <Link to="/student">
+                <Link to={`/Student/${id}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
                   <span className="title1">Dashboard</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/ViewTeacher">
                   <span className="icon">
                   <ion-icon name="newspaper-outline"></ion-icon>
                   </span>
                   <span className="title1">Assessment</span>
                 </Link>
-              </li>
-              <li>
-                <Link to="/View-Students">
-                  <span className="icon">
-                  <ion-icon name="walk-outline"></ion-icon>
-                  </span>
-                  <span className="title1">Attendence</span>
-                </Link>
-              </li>
+              </li> */}
               <li>
                 <a href="">
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
-                  <span className="title1">Settings</span>
+                  <span className="title1">Reset Password</span>
                 </a>
               </li>
               

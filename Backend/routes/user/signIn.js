@@ -29,12 +29,29 @@ router.route("/").post(async (req, res) => {
       }
     } else if (student) {
       if (student.authentication.verified == true) {
+        // compare student password
         const stu_passwordMatch = await bcrypt.compare(
           userpassword,
           student.authentication.stu_password
         );
-        const type = "student";
-        responseResult(stu_passwordMatch, type);
+        // compare parent password
+        const parent_passwordMatch = await bcrypt.compare(
+          userpassword,
+          student.authentication.parent_password
+        );
+
+        if (stu_passwordMatch) {
+          
+          const type = "student";
+          const id = student._id;
+          responseResult(stu_passwordMatch, type,id);
+        }
+        else if(parent_passwordMatch){
+          const type = "parent";
+          const id = student._id;
+          responseResult(parent_passwordMatch, type,id);
+        }
+
       } else {
         res
           .status(200)
@@ -60,7 +77,7 @@ router.route("/").post(async (req, res) => {
       return;
     }
 
-    function responseResult(matchPassword, type, subject) {
+    function responseResult(matchPassword, type, value) {
       // password checker
       if (matchPassword && type == "teacher") {
         // console.log(subject);
@@ -68,10 +85,21 @@ router.route("/").post(async (req, res) => {
           sucess: true,
           message: "Sign-in successful",
           type: type,
-          subject: subject,
+          subject: value,
         });
         return;
-      } else if (matchPassword) {
+      } 
+      else if(matchPassword && (type == "student" || type == "parent")){
+        res.status(200).json({
+          sucess: true,
+          message: "Sign-in successful",
+          type: type,
+          stu_id: value,
+        });
+        return;
+      }
+      
+      else if (matchPassword) {
         res
           .status(200)
           .json({ sucess: true, message: "Sign-in successful", type: type });

@@ -18,7 +18,7 @@ export default function RegiDashboard() {
               </li>
 
               <li>
-                <Link to="/View-Students">
+                <Link to="/Student-Attendence">
                   <span className="icon">
                     <ion-icon name="walk-outline"></ion-icon>
                   </span>
@@ -30,7 +30,7 @@ export default function RegiDashboard() {
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
-                  <span className="title1">Settings</span>
+                  <span className="title1">Reset Password</span>
                 </a>
               </li>
 

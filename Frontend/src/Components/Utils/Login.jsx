@@ -2,7 +2,7 @@ import "./Login.css";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,7 +47,7 @@ function Login() {
             progress: undefined,
             theme: "dark",
           });
-        }else{
+        } else {
           toast.error(res.data.message, {
             position: "top-right",
             autoClose: 4000,
@@ -71,16 +71,21 @@ function Login() {
           if (res.data.type == "Admin" || res.data.type == "Co-Admin") {
             navigate("/Admin");
           } else if (res.data.type == "student") {
-            console.log("navigate");
+            const id = res.data.stu_id;
+
+            navigate(`/Student/${id}`);
+            // navigate("/Admin");
+          } else if (res.data.type == "parent") {
+            console.log("parent");
             // navigate("/Admin");
           } else if (res.data.type == "Registrar") {
-            console.log("navigate");
-            // navigate("/Admin");
+            console.log("Registrar");
+            navigate("/Student-Attendence");
           } else if (res.data.type == "teacher") {
             // console.log("Teacher");
             setTeachSubject(res.data.subject);
             // console.log(teachSubject);
-            const id = res.data.subject
+            const id = res.data.subject;
             navigate(`/Teacher/${id}`);
           }
         }, 2000);
