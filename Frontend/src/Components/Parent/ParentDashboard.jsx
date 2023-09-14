@@ -1,16 +1,16 @@
 import "../Admin/Dashboard.css";
-import "./TeacherDashboard.css";
 import { useState } from "react";
-import { Link, Router ,useNavigate} from "react-router-dom";
-import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
-function TeacherDashboard(props) {
+export default function ParentDashboard(props) {
+
   const { id } = props;
-  let teacherId;
+  // console.log(id);
+  let studentId;
 
   // id is get the first login time only then I Stored it in the cookies
   if (id != undefined) {
-    document.cookie = `teacherId=${id}`;
+    document.cookie = `studentId=${id}`;
   }
 
   function getCookie(name) {
@@ -24,11 +24,11 @@ function TeacherDashboard(props) {
     return null;
   }
 
-  teacherId = getCookie("teacherId");
+  studentId = getCookie("studentId");
 
   const navigate = useNavigate();
 
-  if (!teacherId) {
+  if (!studentId) {
     navigate("/login");
   }
 
@@ -42,34 +42,25 @@ function TeacherDashboard(props) {
                 {/* <span className="icon">
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
-                <span className="title123">Teacher </span>
-                <p className="title1234">{teacherId} </p>
-              </li>
+                <span className="title123">Parent</span>
+              
+            </li>
               <li>
-                <Link to={`/Teacher/${teacherId}`}>
+                <Link to={`/Parent/${id}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
                   <span className="title1">Dashboard</span>
                 </Link>
               </li>
-
-              <li>
-                <Link to="/Teacher-View-Student-Data">
+              {/* <li>
+                <Link to="/ViewTeacher">
                   <span className="icon">
-                    <ion-icon name="people-outline"></ion-icon>
+                  <ion-icon name="newspaper-outline"></ion-icon>
                   </span>
-                  <span className="title1">Students</span>
+                  <span className="title1">Assessment</span>
                 </Link>
-              </li>
-              <li>
-                <Link to={`/Add-Result/${teacherId}`}>
-                  <span className="icon">
-                    <ion-icon name="book-outline"></ion-icon>
-                  </span>
-                  <span className="title1">Add-Result</span>
-                </Link>
-              </li>
+              </li> */}
               <li>
                 <a href="">
                   <span className="icon">
@@ -78,8 +69,8 @@ function TeacherDashboard(props) {
                   <span className="title1">Reset Password</span>
                 </a>
               </li>
-
-              <li id="sign-out">
+              
+              <li>
                 <Link to="/">
                   <span className="icon">
                     <ion-icon name="log-out-outline"></ion-icon>
@@ -90,10 +81,9 @@ function TeacherDashboard(props) {
             </ul>
           </div>
         </div>
-        <div className=""></div>
       </div>
     </>
   );
 }
 
-export default TeacherDashboard;
+

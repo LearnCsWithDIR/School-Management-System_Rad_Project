@@ -23,6 +23,9 @@ import Teacher from './Components/Teacher/Teacher';
 import Student from './Components/Student/Student';
 import AddAttendence from './Components/Registrar/AddAttendence';
 
+import ParentDashboard from './Components/Parent/ParentDashboard';
+import Parent from './Components/Parent/Parent';
+
 function App() {
 
   // const location = useLocation();
@@ -67,6 +70,8 @@ function App() {
         {/* <Route path="/student" exact element={<Student/>} /> */}
         <Route path="/Student-Attendence" exact element={<AddAttendence/>} />
         <Route path="/Student/:id" exact element={<Student/>} />
+
+        <Route path="/Parent/:id" exact element={<Parent/>} />
 
       </Routes>
     </Router>

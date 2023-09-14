@@ -55,7 +55,7 @@ function Dashboard() {
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
-                  <span className="title1">Settings</span>
+                  <span className="title1">Reset Password</span>
                 </a>
               </li>
               
