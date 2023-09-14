@@ -145,3 +145,50 @@ router.route("/add-result").post(async (req, res) => {
 });
 
 module.exports = router;
+
+// update the teacher Password
+router.route("/update-password").post(async (req, res) => {
+  const { user_id, currentPassword, NewPassword } = req.body;
+
+  const teacher = await Teacher.findOne({ _id: user_id });
+
+  if (teacher) {
+    const teacher_passwordMatch = await bcrypt.compare(
+      currentPassword,
+      teacher.authentication.teacher_password
+    );
+    if (teacher_passwordMatch) {
+
+      const teacher_hashedPassword = await bcrypt.hash(NewPassword, 12);
+
+
+      const updatePassword = {
+        authentication: {
+          teacher_password: teacher_hashedPassword,
+        },
+      };
+
+      Teacher.updateOne(
+        { _id: user_id }, 
+        { $set: updatePassword } 
+      )
+        .then((change) => {
+          if (change.modifiedCount) {
+            res.json({ message: "Password Reset successful..." });
+          }
+          // console.log(count.modifiedCount);
+        })
+        .catch((err) => {
+          console.error("Error updating document");
+        });
+
+      return;
+    } else {
+      res.json({ message: "Password is not match..." });
+      return;
+    }
+  } else {
+    res.json({ message: "User is not found..." });
+    return;
+  }
+});
