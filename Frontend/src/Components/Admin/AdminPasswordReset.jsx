@@ -1,6 +1,6 @@
 import "./Login.css";
 import { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../Utils/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";

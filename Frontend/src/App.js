@@ -27,7 +27,10 @@ import ParentDashboard from './Components/Parent/ParentDashboard';
 import Parent from './Components/Parent/Parent';
 
 
-import PasswordReset from './Components/Utils/PasswordReset';
+import StuPasswordReset from './Components/Student/StuPasswordReset';
+import TeacherPasswordReset from './Components/Teacher/TeacherPasswordReset';
+import ParentPasswordReset from './Components/Parent/ParentPasswordReset';
+import AdminPasswordReset from './Components/Admin/AdminPasswordReset';
 
 function App() {
 
@@ -76,7 +79,10 @@ function App() {
 
         <Route path="/Parent/:id" exact element={<Parent/>} />
 
-        <Route path="/password-reset" exact element={<PasswordReset/>} />
+        <Route path="/password-reset" exact element={<StuPasswordReset/>} />
+        <Route path="/password-reset" exact element={<TeacherPasswordReset/>} />
+        <Route path="/password-reset" exact element={<ParentPasswordReset/>} />
+        <Route path="/password-reset" exact element={<AdminPasswordReset/>} />
 
       </Routes>
     </Router>
