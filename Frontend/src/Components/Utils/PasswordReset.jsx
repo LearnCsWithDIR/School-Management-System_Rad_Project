@@ -97,6 +97,7 @@ export default function PasswordReset() {
         pauseOnHover
         theme="dark"
       />
+      
       <div id="container_login">
         <div id="signtitle_login">Security Update !</div>
         <div className="signtitle_1">Change Your Password</div>
