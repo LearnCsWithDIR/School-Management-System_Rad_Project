@@ -1,11 +1,11 @@
-import "./Login.css";
+import "../Utils/Login.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Dashboard from "./Dashboard";
 export default function PasswordReset() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [user_id, setUser_id] = useState("");
@@ -30,7 +30,7 @@ export default function PasswordReset() {
     if (NewPassword === confirmpassword) {
       // pass data from the backend
       axios
-        .post("http://localhost:8070/student/f/update-password", resetPassword)
+        .post("http://localhost:8070/af/f/update-password", resetPassword)
         .then((res) => {
           // console.log(res.data);
           // setuserType(res.data.type);
@@ -84,7 +84,7 @@ export default function PasswordReset() {
   }
   return (
     <>
-      <Navbar />
+      <Dashboard />
       <ToastContainer
         position="top-right"
         autoClose={5000}

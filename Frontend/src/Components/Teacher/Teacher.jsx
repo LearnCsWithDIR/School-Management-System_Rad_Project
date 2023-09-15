@@ -12,12 +12,12 @@ export default function Teacher() {
     <>
       <TeacherDashboard id={id}/>
       <div className="homeContainer">
-        <div className="widgets">
+        {/* <div className="widgets">
           <Widgets type="Students" count="25868" precent="28%" />
           <Widgets type="Assigments" count="75008" precent="58.4%" />
           <Widgets type="Submited" count="50868" precent="75%" />
           <Widgets type="Fees Payed" count="23885" precent="30%" />
-        </div>
+        </div> */}
         <div className="listContainer">
           {/* <Widgets type="Students" count="25868" precent="28%" /> */}
           {/* <Widgets type="Assigments" count="75008" precent="58.4%" /> */}
@@ -33,7 +33,7 @@ export default function Teacher() {
                 <span className="h-title">Files</span>
               </div>
 
-              <Submissions />
+              {/* <Submissions /> */}
             </div>
             <div id="listContainer-1">
               <div className="result">
@@ -44,7 +44,7 @@ export default function Teacher() {
                   <span className="h-title">Submit Date</span>
                   <span className="h-title">Files</span>
                 </div>
-                <ViewResult />
+                {/* <ViewResult /> */}
               </div>
             </div>
           </div>

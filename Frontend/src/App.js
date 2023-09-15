@@ -79,10 +79,10 @@ function App() {
 
         <Route path="/Parent/:id" exact element={<Parent/>} />
 
-        <Route path="/password-reset" exact element={<StuPasswordReset/>} />
-        <Route path="/password-reset" exact element={<TeacherPasswordReset/>} />
-        <Route path="/password-reset" exact element={<ParentPasswordReset/>} />
-        <Route path="/password-reset" exact element={<AdminPasswordReset/>} />
+        <Route path="/student/password-reset/:id" exact element={<StuPasswordReset/>} />
+        <Route path="/teacher/password-reset" exact element={<TeacherPasswordReset/>} />
+        <Route path="/parent/password-reset/:id" exact element={<ParentPasswordReset/>} />
+        <Route path="/admin/password-reset" exact element={<AdminPasswordReset/>} />
 
       </Routes>
     </Router>

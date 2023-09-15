@@ -67,18 +67,21 @@ function Login() {
 
         const timeoutId1 = setTimeout(() => {
           if (res.data.type == "Admin" || res.data.type == "Co-Admin") {
-            navigate("/Admin");
+            navigate("/ViewTeacher");
           } else if (res.data.type == "student") {
             const id = res.data.stu_id;
 
             navigate(`/Student/${id}`);
             // navigate("/Admin");
           } else if (res.data.type == "parent") {
-            console.log("parent");
-            // navigate("/Admin");
+            // console.log("parent");
+            const id = res.data.stu_id; 
+            navigate(`/Parent/${id}`);
+
           } else if (res.data.type == "Registrar") {
-            console.log("Registrar");
+            // console.log("Registrar");
             navigate("/Student-Attendence");
+            
           } else if (res.data.type == "teacher") {
             // console.log("Teacher");
             setTeachSubject(res.data.subject);

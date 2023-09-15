@@ -1,9 +1,8 @@
 import "../Admin/Dashboard.css";
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ParentDashboard(props) {
-
   const { id } = props;
   // console.log(id);
   let studentId;
@@ -26,6 +25,8 @@ export default function ParentDashboard(props) {
 
   studentId = getCookie("studentId");
 
+  // console.log("Parent for ID: ",studentId);
+
   const navigate = useNavigate();
 
   if (!studentId) {
@@ -43,10 +44,9 @@ export default function ParentDashboard(props) {
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
                 <span className="title123">Parent</span>
-              
-            </li>
+              </li>
               <li>
-                <Link to={`/Parent/${id}`}>
+                <Link to={`/Parent/${studentId}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
@@ -62,14 +62,14 @@ export default function ParentDashboard(props) {
                 </Link>
               </li> */}
               <li>
-                <a href="">
+                <Link to={`/parent/password-reset/${studentId}`}>
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
                   <span className="title1">Reset Password</span>
-                </a>
+                </Link>
               </li>
-              
+
               <li>
                 <Link to="/">
                   <span className="icon">
@@ -85,5 +85,3 @@ export default function ParentDashboard(props) {
     </>
   );
 }
-
-

@@ -16,16 +16,15 @@ function Dashboard() {
                   <ion-icon name="logo-apple"></ion-icon>
                 </span> */}
                 <span className="title123">Admin</span>
-              
-            </li>
-              <li>
+              </li>
+              {/* <li>
                 <Link to="/Admin">
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
                   <span className="title1">Dashboard</span>
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/ViewTeacher">
                   <span className="icon">
@@ -51,14 +50,14 @@ function Dashboard() {
                 </Link>
               </li>
               <li>
-                <a href="">
+                <Link to="/admin/password-reset">
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
                   <span className="title1">Reset Password</span>
-                </a>
+                </Link>
               </li>
-              
+
               <li>
                 <Link to="/">
                   <span className="icon">

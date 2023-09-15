@@ -45,7 +45,7 @@ export default function StuDashboard(props) {
                 <span className="title123">Student</span>
               </li>
               <li>
-                <Link to={`/Student/${id}`}>
+                <Link to={`/Student/${studentId}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
@@ -61,7 +61,7 @@ export default function StuDashboard(props) {
                 </Link>
               </li> */}
               <li>
-                <Link to="/password-reset">
+                <Link to={`/student/password-reset/${studentId}`}>
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>

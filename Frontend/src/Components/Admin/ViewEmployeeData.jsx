@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Utils/ViewData.css";
 import axios from "axios";
-import TeacherUpdate from "./TeacherUpdate";
+import EmployeeUpdate from "./EmployeeUpdate";
 
 export default function ViewEmployeeData() {
   const [EmployeeData, setEmployeeData] = useState([]);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userObj, setUserObj] = useState({});
+  const [clickbtn, setClickbtn] = useState(false);
 
   useEffect(() => {
     function getEmployee() {
@@ -15,7 +17,7 @@ export default function ViewEmployeeData() {
         .get("http://localhost:8070/af/f/view")
         .then((res) => {
           setEmployeeData(res.data);
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((e) => {
           console.log(e);
@@ -33,7 +35,17 @@ export default function ViewEmployeeData() {
     });
   };
 
-  const togglePopup = () => {
+  const togglePopup = (userId) => {
+
+     // get the update stage for user user object
+     if (!isPopupOpen) {
+      EmployeeData.map((user, index) => {
+        if (userId == user._id) {
+          // console.log(user);
+          setUserObj(user);
+        }
+      });
+    }
     setIsPopupOpen(!isPopupOpen);
   };
 
@@ -88,7 +100,7 @@ export default function ViewEmployeeData() {
                           className="icon-"
                           to=""
                           onClick={() => {
-                            togglePopup();
+                            togglePopup(user._id);
                           }}
                         >
                           <span className="icons" title="Edit">
@@ -116,10 +128,16 @@ export default function ViewEmployeeData() {
             <div className="popup">
               {/* Add the update form and logic here */}
               {/* // Inside the popup in UserDetails.js */}
-              
-              {/* <TeacherUpdate isPopupOpen={isPopupOpen} setIsPopupOpen = {setIsPopupOpen}/> */}
+
+              <EmployeeUpdate
+                isPopupOpen={isPopupOpen}
+                setIsPopupOpen={setIsPopupOpen}
+                user_obj={userObj}
+                setClickbtn={setClickbtn}
+              />
             </div>
           )}
+            {clickbtn ? location.reload() : ""}
         </div>
       </div>
     </>

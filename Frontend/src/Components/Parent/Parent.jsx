@@ -4,13 +4,42 @@ import "../Teacher/Teacher.css";
 // import Widgets from "./Widget";
 import StuAttendence from "../Student/StuAttendence";
 import StuResult from "../Student/StuResult";
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate} from "react-router-dom";
 
 export default function Parent() {
   const { id } = useParams();
+
+  let studentId;
+
+  // id is get the first login time only then I Stored it in the cookies
+  if (id != undefined) {
+    document.cookie = `studentId=${id}`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+
+  studentId = getCookie("studentId");
+
+  // console.log("Parent for ID: ",studentId);
+
+  const navigate = useNavigate();
+
+  if (!studentId) {
+    navigate("/login");
+  }
+
   return (
     <>
-      <ParentDashboard id={id}/>
+      <ParentDashboard id={studentId}/>
       <div className="homeContainer">
         <div className="listContainer">
           {/* <Submissions /> */}
@@ -24,18 +53,18 @@ export default function Parent() {
                 <span className="h-title">Date</span>
               </div>
 
-              <StuAttendence id={id} />
+              <StuAttendence id={studentId} />
             </div>
             <div id="listContainer-1">
               <div className="result">
                 <div className="listTitle">Exam Results</div>
-                <div className="heading">
-                  <span className="h-title">Result ID</span>
-                  <span className="h-title">Subject</span>
-                  <span className="h-title">Assigment</span>
-                  <span className="h-title">subject</span>
+                <div className="heading1">
+                  <span className="h-title1">ID</span>
+                  <span className="h-title1">Subject</span>
+                  <span className="h-title1">Assigment</span>
+                  <span className="h-title1">subject</span>
                 </div>
-                <StuResult id={id} />
+                <StuResult id={studentId} />
               </div>
             </div>
           </div>

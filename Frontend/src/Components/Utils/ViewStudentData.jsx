@@ -15,8 +15,8 @@ export default function ViewStudentData() {
         .get("http://localhost:8070/student/f/view")
         .then((res) => {
           setStudentData(res.data);
-          console.log(res.data);
-          console.log(res.data[0].authentication.verified);
+          // console.log(res.data);
+          // console.log(res.data[0].authentication.verified);
         })
         .catch((e) => {
           console.log(e);

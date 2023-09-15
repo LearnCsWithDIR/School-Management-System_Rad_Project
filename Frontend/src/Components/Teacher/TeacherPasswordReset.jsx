@@ -1,4 +1,4 @@
-import "./Login.css";
+import "../Utils/Login.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
 import axios from "axios";
@@ -26,11 +26,11 @@ export default function PasswordReset() {
       currentPassword,
       NewPassword,
     };
-    console.log(resetPassword);
+    // console.log(resetPassword);
     if (NewPassword === confirmpassword) {
       // pass data from the backend
       axios
-        .post("http://localhost:8070/student/f/update-password", resetPassword)
+        .post("http://localhost:8070/teacher/f/update-password", resetPassword)
         .then((res) => {
           // console.log(res.data);
           // setuserType(res.data.type);

@@ -57,12 +57,12 @@ export default function StuResult(props) {
         <div className="Ab-left">
           <form action="">
             <table className="tables1">
-              <tbody className="datas">
+              <tbody className="datas1">
               {results.map((user, index) => {
                   if (user.stu_id === studentId) {
                     return (
                       <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{index + 10752}</td>
                         <td>{user.subjectName}</td>
                         <td>{user.resultDetails.assignmentMark}</td>
                         <td>{user.resultDetails.subjectMark}</td>

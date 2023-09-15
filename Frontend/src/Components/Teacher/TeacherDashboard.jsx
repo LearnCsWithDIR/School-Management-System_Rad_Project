@@ -1,7 +1,7 @@
 import "../Admin/Dashboard.css";
 import "./TeacherDashboard.css";
 import { useState } from "react";
-import { Link, Router ,useNavigate} from "react-router-dom";
+import { Link, Router, useNavigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 
 function TeacherDashboard(props) {
@@ -45,14 +45,14 @@ function TeacherDashboard(props) {
                 <span className="title123">Teacher </span>
                 <p className="title1234">{teacherId} </p>
               </li>
-              <li>
+              {/* <li>
                 <Link to={`/Teacher/${teacherId}`}>
                   <span className="icon">
                     <ion-icon name="home-outline"></ion-icon>
                   </span>
                   <span className="title1">Dashboard</span>
                 </Link>
-              </li>
+              </li> */}
 
               <li>
                 <Link to="/Teacher-View-Student-Data">
@@ -70,14 +70,14 @@ function TeacherDashboard(props) {
                   <span className="title1">Add-Result</span>
                 </Link>
               </li>
-              <li>
-                <a href="">
+              {/* <li>
+                <Link to="/teacher/password-reset">
                   <span className="icon">
                     <ion-icon name="cog-outline"></ion-icon>
                   </span>
                   <span className="title1">Reset Password</span>
-                </a>
-              </li>
+                </Link>
+              </li> */}
 
               <li id="sign-out">
                 <Link to="/">

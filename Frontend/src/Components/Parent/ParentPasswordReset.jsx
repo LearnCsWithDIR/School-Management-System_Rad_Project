@@ -1,12 +1,42 @@
-import "./Login.css";
+import "../Utils/Login.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ParentDashboard from "./ParentDashboard";
 export default function PasswordReset() {
+  
+  const { id } = useParams();
+
+  let studentId;
+
+  // id is get the first login time only then I Stored it in the cookies
+  if (id != undefined) {
+    document.cookie = `studentId=${id}`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+
+  studentId = getCookie("studentId");
+
+  console.log("Parent for ID: ",studentId);
+  const navigate = useNavigate();
+
+  if (!studentId) {
+    navigate("/login");
+  }
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [user_id, setUser_id] = useState("");
   const [NewPassword, setNewPassword] = useState("");
@@ -16,21 +46,22 @@ export default function PasswordReset() {
   const [message, setMessage] = useState("");
   const [showpassword, setshowpassword] = useState(false);
 
-  const navigate = useNavigate();
-
   function ResetData(e) {
     e.preventDefault();
 
     const resetPassword = {
-      user_id,
+      user_id:studentId,
       currentPassword,
       NewPassword,
+
     };
+    
     console.log(resetPassword);
+    
     if (NewPassword === confirmpassword) {
       // pass data from the backend
       axios
-        .post("http://localhost:8070/student/f/update-password", resetPassword)
+        .post("http://localhost:8070/parent/f/update-password", resetPassword)
         .then((res) => {
           // console.log(res.data);
           // setuserType(res.data.type);
@@ -53,7 +84,7 @@ export default function PasswordReset() {
               theme: "dark",
             });
           } else {
-            toast.success(res.data.message, {
+            toast.error(res.data.message, {
               position: "top-right",
               autoClose: 4000,
               hideProgressBar: false,
@@ -79,12 +110,12 @@ export default function PasswordReset() {
         progress: undefined,
         theme: "dark",
       });
-      console.log("confirm");
+
     }
   }
   return (
     <>
-      <Navbar />
+      <ParentDashboard />
       <ToastContainer
         position="top-right"
         autoClose={5000}

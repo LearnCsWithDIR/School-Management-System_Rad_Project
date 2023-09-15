@@ -66,7 +66,7 @@ export default function StuAttendence(props) {
                     console.log("map isahfef");
                     return (
                       <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{index + 150}</td>
                         <td>{user.subjectName}</td>
                         <td>{user.AttendType}</td>
                         <td>{user.Attendence.substring(0, 10)}</td>

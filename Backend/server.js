@@ -73,6 +73,10 @@ app.use("/af/f", EmployeeViewRouter);
 const TeacherViewRouter = require("./routes/teacher/functions.js");
 app.use("/teacher/f", TeacherViewRouter);
 
+// connect parent functions
+const ParentViewRouter = require("./routes/parent/functions.js");
+app.use("/parent/f", ParentViewRouter);
+
 
 app.listen(PORT, () => {
     console.log("Sever is up and running...");

@@ -1,52 +1,47 @@
-import React, { useState } from "react";
-import "./Update.css";
-import { Link, useNavigate } from "react-router-dom";
-// import "../Utils/ViewData.css";
-import "../Registrar/StudentRegister.css";
+import "./EmployeeRegister.css";
+import { useState } from "react";
+// handle the http request and response
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Update.css";
 
-export default function StudentUpdate(props) {
+function EmployeeUpdate(props) {
   const { isPopupOpen, setIsPopupOpen, user_obj, setClickbtn } = props;
 
+  console.log("update panel",user_obj);
   // get data for useState
   const [user_id, setUser_id] = useState(user_obj._id);
-  const [stu_name, setName] = useState(user_obj.userDetails.name);
+  const [emp_name, setName] = useState(user_obj.empDetails.name);
   const [email, setEmail] = useState(user_obj.email);
-  const [DOB, setDOB] = useState(user_obj.userDetails.DOB);
-  const [address, setAddress] = useState(user_obj.userDetails.address);
-  const [city, setCity] = useState(user_obj.userDetails.city);
-  const [department, setDepartment] = useState(user_obj.userDetails.department);
-  const [gender, setGender] = useState(user_obj.userDetails.gender);
-  const [parent_name, setParentName] = useState(user_obj.parentDetails.name);
-  const [relationship, setRelationship] = useState(
-    user_obj.parentDetails.relationship
-  );
-  const [NIC, setNIC] = useState(user_obj.parentDetails.NIC);
-  const [phone, setphone] = useState(user_obj.parentDetails.phone);
+  const [address, setAddress] = useState(user_obj.empDetails.address);
+  const [city, setCity] = useState(user_obj.empDetails.city);
+  const [NIC, setNIC] = useState(user_obj.empDetails.NIC);
+  const [phone, setphone] = useState(user_obj.empDetails.phone);
+  const [gender, setGender] = useState(user_obj.empDetails.gender);
+  const [emp_type, setEmpType] = useState(user_obj.empDetails.emp_type);
 
-  function UpdateData(e) {
+  const [responseData, setResponseData] = useState("");
+
+  function sentData(e) {
     e.preventDefault();
 
-    const newStudent = {
+    const newEmployee = {
       user_id,
-      stu_name,
+      emp_name,
       email,
-      DOB,
       address,
       city,
       NIC,
       phone,
       gender,
-      parent_name,
-      relationship,
-      department,
+      emp_type,
     };
-    console.log(newStudent);
+    console.log(newEmployee);
 
     axios
-      .post("http://localhost:8070/student/f/update", newStudent)
+      .post("http://localhost:8070/af/f/update", newEmployee)
       .then((res) => {
         // console.log(res.data.message);
         if (res.data.message == "Already Updated...") {
@@ -85,7 +80,9 @@ export default function StudentUpdate(props) {
       .catch((e) => {
         console.log(e);
       });
+
   }
+
   return (
     <>
       <ToastContainer
@@ -107,13 +104,12 @@ export default function StudentUpdate(props) {
           </span>
         </Link>
       </div>
-
-      <div className="containerStu">
-        <div className="title">Student Parent Detail Update</div>
-        <form onSubmit={UpdateData}>
+      <div className="container1">
+        <div className="emptitle">Employee Data Update</div>
+        <form onSubmit={sentData}>
           <div className="user-details">
             <div className="input-box">
-              <span className="details">Student full name</span>
+              <span className="details">Employee Full name</span>
               <input
                 type="text"
                 placeholder="Enter your name"
@@ -121,7 +117,7 @@ export default function StudentUpdate(props) {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
-                value={stu_name}
+                value={emp_name}
               />
             </div>
 
@@ -135,17 +131,6 @@ export default function StudentUpdate(props) {
                   setEmail(e.target.value);
                 }}
                 value={email}
-              />
-            </div>
-            <div className="input-box">
-              <span className="details">Date of Birth</span>
-              <input
-                type="date"
-                placeholder="Enter your Birthday"
-                required
-                onChange={(e) => setDOB(e.target.value)}
-                value={DOB.substring(0, 10)}
-                // pattern="\d{4}-\d{2}-\d{2}" 
               />
             </div>
 
@@ -172,23 +157,44 @@ export default function StudentUpdate(props) {
             </div>
 
             <div className="input-box">
-              <span className="details">Select Department</span>
-              <select
-                name="department"
-                id="department"
+              <span className="details">NIC number</span>
+              <input
+                type="text"
+                placeholder="Enter NIC number"
                 required
-                onChange={(e) => setDepartment(e.target.value)}
-                value={department}
+                onChange={(e) => setNIC(e.target.value)}
+                value={NIC}
+              />
+            </div>
+
+            <div className="input-box">
+              <span className="details">Phone number</span>
+              <input
+                type="text"
+                placeholder="Enter Phone number"
+                required
+                onChange={(e) => setphone(e.target.value)}
+                value={phone}
+              />
+            </div>
+
+            <div className="input-box">
+              <span className="details">Select Employee Type</span>
+              <select
+                name="emptype"
+                id="emptype"
+                required
+                onChange={(e) => setEmpType(e.target.value)}
+                value={emp_type}
               >
-                <option value="Computer Science">Computer Science</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Technology">Technology</option>
-                <option value="Science">Science</option>
+                <option value="Registrar">Registrar</option>
+                <option value="Payment Handler">Payment Handler</option>
+                <option value="Co-Admin">Co-Admin</option>
               </select>
             </div>
           </div>
 
-          <div className="stugender-details">
+          <div className="gender-details">
             <input
               type="radio"
               name="gender"
@@ -218,61 +224,13 @@ export default function StudentUpdate(props) {
               </label>
             </div>
           </div>
-          <div className="parent-details">
-            <div className="input-box">
-              <span className="details">Your Parent name</span>
-              <input
-                type="text"
-                placeholder="Enter your Parent name"
-                required
-                onChange={(e) => setParentName(e.target.value)}
-                value={parent_name}
-              />
-            </div>
-
-            <div className="input-box">
-              <span className="details">Parent with relationship</span>
-              <select
-                name="department"
-                id="department"
-                required
-                onChange={(e) => setRelationship(e.target.value)}
-                value={relationship}
-              >
-                <option value="Mother">Mother</option>
-                <option value="Father">Father</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div className="input-box">
-              <span className="details">NIC number</span>
-              <input
-                type="text"
-                placeholder="Enter NIC number"
-                required
-                onChange={(e) => setNIC(e.target.value)}
-                value={NIC}
-              />
-            </div>
-
-            <div className="input-box">
-              <span className="details">Phone number</span>
-              <input
-                type="text"
-                placeholder="Enter Phone number"
-                required
-                onChange={(e) => setphone(e.target.value)}
-                value={phone}
-              />
-            </div>
-          </div>
 
           <div className="button">
-            <input type="submit" value="Update" />
+            <input type="submit" value="Register" />
           </div>
         </form>
       </div>
     </>
   );
 }
+export default EmployeeUpdate;

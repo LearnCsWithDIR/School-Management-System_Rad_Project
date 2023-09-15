@@ -1,12 +1,45 @@
-import "./Login.css";
+import "../Utils/Login.css";
 import { useState } from "react";
 import Navbar from "../Utils/Navbar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams} from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import StuDashboard from "./StuDashboard";
+
+
 
 export default function PasswordReset() {
+
+  const { id } = useParams();
+
+  let studentId;
+
+  // id is get the first login time only then I Stored it in the cookies
+  if (id != undefined) {
+    document.cookie = `studentId=${id}`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+
+  studentId = getCookie("studentId");
+
+  console.log("Parent for ID: ",studentId);
+  const navigate = useNavigate();
+
+  if (!studentId) {
+    navigate("/login");
+  }
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [user_id, setUser_id] = useState("");
   const [NewPassword, setNewPassword] = useState("");
@@ -16,17 +49,18 @@ export default function PasswordReset() {
   const [message, setMessage] = useState("");
   const [showpassword, setshowpassword] = useState(false);
 
-  const navigate = useNavigate();
 
   function ResetData(e) {
     e.preventDefault();
 
     const resetPassword = {
-      user_id,
+      user_id:studentId,
       currentPassword,
       NewPassword,
     };
-    console.log(resetPassword);
+
+    // console.log(resetPassword);
+
     if (NewPassword === confirmpassword) {
       // pass data from the backend
       axios
@@ -84,7 +118,7 @@ export default function PasswordReset() {
   }
   return (
     <>
-      <Navbar />
+      <StuDashboard />
       <ToastContainer
         position="top-right"
         autoClose={5000}

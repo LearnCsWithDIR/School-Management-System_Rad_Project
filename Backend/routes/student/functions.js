@@ -226,11 +226,15 @@ router.route("/update-password").post(async (req, res) => {
     if (stu_passwordMatch) {
 
       const stu_hashedPassword = await bcrypt.hash(NewPassword, 12);
+      const verified = student.authentication.verified;
+      const parent_password = student.authentication.stu_password;
 
 
       const updatePassword = {
         authentication: {
           stu_password: stu_hashedPassword,
+          verified:verified,
+          parent_password:parent_password
         },
       };
 
